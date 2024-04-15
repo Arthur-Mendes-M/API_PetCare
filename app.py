@@ -5,7 +5,7 @@ from auth import protect_routes
 from routes.employee import employee_blueprint
 
 # Create flask instance and save blueprints
-app = Flask(__name__)
+app = Flask(__name__, static_folder="./images")
 app.register_blueprint(employee_blueprint)
 
 # Default route - documentation
