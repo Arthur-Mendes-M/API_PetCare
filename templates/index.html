@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="shortcut icon" href="templates/images/PetCare.svg" type="image/x-icon">
+    <title>Documentação | PetCare</title>
 
+    <!-- Importing tailwind css -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- #F8E7BB -->
+    <!-- Config for tailwind extra variables -->
     <script>
         tailwind.config = {
           theme: {
@@ -28,7 +30,7 @@
 </head>
 <body class="bg-yellow_one flex flex-col min-h-screen">
     <header class="w-full h-[70px] bg-yellow_two flex items-center justify-center p-2 shadow-sm">
-        <img src="images/PetCare.svg" alt="PetCare - API" class="h-8">
+        <img src="templates/images/PetCare.svg" alt="PetCare - API" class="h-8">
     </header>
 
     <main class="grow px-6 py-3 flex flex-col gap-6 w-full md:px-12 md:py-6">
@@ -91,36 +93,5 @@
         <h3>Todos os direitos reservados - PetCare</h3>
         <p>Copyright © 2024</p>
     </footer>
-
-    <!-- from database.connection import supabase -->
-
-    <!-- supabase.table('countries').select("*").execute() -->
-
-    
-    <!-- supabase.table('user').insert( -->
-        <!-- { -->
-            <!-- "name": "Arthur",  -->
-            <!-- "email": "arthur@gmail.com",  -->
-            <!-- "password": "123456" -->
-        <!-- } -->
-    <!-- ).execute() -->
-
-    <!-- Retorno um erro porque o email deve ser unico -->
-    <!-- supabase.table('user').upsert( -->
-        <!-- { -->
-            <!-- "name": "Arthur Me",  -->
-            <!-- "email": "arthur@gmail.com",  -->
-            <!-- "password": "123456" -->
-        <!-- } -->
-    <!-- ).execute() -->
-
-    <!-- Atualiza o nome do usuario com id = 1 -->
-    <!-- supabase.table('user').update({ -->
-        <!-- "name": "Arthur Mendes", -->
-    <!-- }).eq('id', 1).execute() -->
-
-    <!-- supabase.table('user').delete().eq('id', 3).execute() -->
-
-    <!-- print('executou') -->
 </body>
 </html>
