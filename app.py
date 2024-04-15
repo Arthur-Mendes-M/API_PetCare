@@ -18,5 +18,5 @@ def get_documentation():
 def before_request():
     return protect_routes()
 
-if __name__ == "__main__":
-    app.run(host='localhost', port=5500, debug=True)
+# if __name__ == "__main__":
+#     app.run(host='localhost', port=5500, debug=True)
