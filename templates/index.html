@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/images/PetCare.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ html_variables['logo'] }}" type="image/x-icon">
     <title>Documentação | PetCare</title>
 
     <!-- Importing tailwind css -->
@@ -30,7 +30,7 @@
 </head>
 <body class="bg-yellow_one flex flex-col min-h-screen">
     <header class="w-full h-[70px] bg-yellow_two flex items-center justify-center p-2 shadow-sm">
-        <img src="/images/PetCare.svg" alt="PetCare - API" class="h-8">
+        <img src="{{ html_variables['logo'] }}" alt="PetCare - API" class="h-8">
     </header>
 
     <main class="grow px-6 py-3 flex flex-col gap-6 w-full md:px-12 md:py-6">
@@ -71,7 +71,7 @@
                 </div>
     
                 <div class="w-full md:max-w-[45%] min-w-[45%] overflow-hidden rounded-md shadow-lg">
-                    <img src="https:source.unsplash.com/random/1800x800" alt="Image" class="w-full h-full cover">
+                    <img src="{{ html_variables['url_pattern.png'] }}" alt="https://url_raiz/endpoint?auth=TOKEN" class="w-full h-full cover">
                 </div>
             </div>
         </section>

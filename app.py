@@ -4,6 +4,11 @@ from auth import protect_routes
 # Import blueprints
 from routes.employee import employee_blueprint
 
+# Set variables to import on html
+html_variables = {
+    "logo": "/images/PetCare.svg"
+}
+
 # Create flask instance and save blueprints
 app = Flask(__name__, static_folder="./images")
 app.register_blueprint(employee_blueprint)
