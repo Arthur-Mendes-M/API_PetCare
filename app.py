@@ -6,7 +6,8 @@ from routes.employee import employee_blueprint
 
 # Set variables to import on html
 html_variables = {
-    "logo": "/images/PetCare.svg"
+    "logo": "/images/PetCare.svg",
+    "exemple_url_pattern": "/images/url_pattern.png"
 }
 
 # Create flask instance and save blueprints
@@ -16,7 +17,7 @@ app.register_blueprint(employee_blueprint)
 # Default route - documentation
 @app.route("/")
 def get_documentation():
-    return render_template('index.html')
+    return render_template('index.html', html_variables=html_variables)
 
 # Protects routes before all requests
 @app.before_request
