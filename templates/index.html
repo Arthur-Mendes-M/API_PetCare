@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- #F8E7BB -->
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                yellow_one: '#F8E7BB',
+                yellow_two: '#FFC000',
+                gray_one: '#C4C4C4',
+                dark_blue: '#389BF2',
+                light_blue: '#56A7F0',
+                pink_petcare: '#ED6E9F',
+                green_petcare: '#00E096'
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="bg-yellow_one flex flex-col min-h-screen">
+    <header class="w-full h-[70px] bg-yellow_two flex items-center justify-center p-2 shadow-sm">
+        <img src="images/PetCare.svg" alt="PetCare - API" class="h-8">
+    </header>
+
+    <main class="grow px-6 py-3 flex flex-col gap-6 w-full md:px-12 md:py-6">
+        <section class="flex flex-wrap justify-center gap-3 md:justify-between">
+            <div class="md:max-w-[45%]">
+                <h1 class="text-3xl mb-3">Sobre o <strong class="text-green_petcare font-normal">PetCare.</strong></h1>
+                <p>PetCare é a forma <mark class="italic bg-light_blue p-1 text-white font-mono">simples, organizada e centralizada</mark> em um sistema multi-plataforma para te auxiliar na gestão do <u class="decoration-pink_petcare text-pink_petcare font-bold">seu petshop</u>.
+            </div>
+            <div class="md:max-w-[45%]">
+                <h1 class="text-3xl mb-3">Sobre a  <strong class="text-green_petcare font-normal">API</strong></h1>
+                <p>Este é o <mark class="italic bg-light_blue p-1 text-white font-mono">endpoint</mark> raiz da API do <u class="decoration-pink_petcare text-pink_petcare font-bold">PetCare.</u> Aqui você terá um guia completo de como utilizar todos os endpoints da <u class="decoration-green_petcare text-green_petcare font-bold">API PetCare connect.</u></p>
+            </div>
+        </section>
+       
+        <hr class="h-[3px] bg-pink_petcare">
+
+        <section>
+            <h1 class="text-3xl mb-3"><strong class="text-pink_petcare font-normal">Token</strong> de segurança</h1>
+            <div class="flex flex-wrap justify-between gap-3 w-full">
+                <div class="w-full md:max-w-[45%]">
+                    <p class="mb-4">
+                        Por motivos de segurança, foi criado um token secreto que deve ser incluído em <u class="decoration-green_petcare text-green_petcare font-bold">TODOS</u> os demais endpoints, como demonstrado na imagem.
+                    </p>
+                    <p>
+                        O token é lido através do <u class="no-underline text-pink_petcare">query paramenter</u> (parametro de busca) nomeado <code class="bg-light_blue text-white p-1">auth</code> onde, na url do endpoint a ser utilizado, é necessário específica-lo. Como no <u class="no-underline text-dark_blue">exemplo</u>:
+    
+                        <code class="my-3 p-2 block rounded-md border border-dark_blue shadow-sm">
+                            https://url_raiz/endpoint<u class="no-underline text-green_petcare font-bold">?auth=&lt;TOKEN&gt;</u>
+                        </code>
+                    </p>
+                    <p>
+                        Esse token é único e exclusivamente gerado para o uso desta API de forma interna pelas plafarmas do PetCare.
+                    </p>
+        
+                    <blockquote class="mt-2 italic">
+                        <p>Portanto, essa API não é pública.</p>
+                    </blockquote>
+                </div>
+    
+                <div class="w-full md:max-w-[45%] min-w-[45%] overflow-hidden rounded-md shadow-lg">
+                    <img src="https:source.unsplash.com/random/1800x800" alt="Image" class="w-full h-full cover">
+                </div>
+            </div>
+        </section>
+
+        <hr class="h-[3px] bg-green_petcare">
+        <h1 class="text-3xl text-center"><strong class="text-green_petcare font-normal">Endpoints</strong> - URL's</h1>
+        <hr class="h-[3px] bg-green_petcare">
+
+        <section>
+            <div>
+                <h2>Funcionários</h2>
+
+                <p>Em desenvolvimento...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray_one flex p-4 gap-6 items-center justify-center">
+        <h3>Todos os direitos reservados - PetCare</h3>
+        <p>Copyright © 2024</p>
+    </footer>
+
+    <!-- from database.connection import supabase -->
+
+    <!-- supabase.table('countries').select("*").execute() -->
+
+    
+    <!-- supabase.table('user').insert( -->
+        <!-- { -->
+            <!-- "name": "Arthur",  -->
+            <!-- "email": "arthur@gmail.com",  -->
+            <!-- "password": "123456" -->
+        <!-- } -->
+    <!-- ).execute() -->
+
+    <!-- Retorno um erro porque o email deve ser unico -->
+    <!-- supabase.table('user').upsert( -->
+        <!-- { -->
+            <!-- "name": "Arthur Me",  -->
+            <!-- "email": "arthur@gmail.com",  -->
+            <!-- "password": "123456" -->
+        <!-- } -->
+    <!-- ).execute() -->
+
+    <!-- Atualiza o nome do usuario com id = 1 -->
+    <!-- supabase.table('user').update({ -->
+        <!-- "name": "Arthur Mendes", -->
+    <!-- }).eq('id', 1).execute() -->
+
+    <!-- supabase.table('user').delete().eq('id', 3).execute() -->
+
+    <!-- print('executou') -->
+</body>
+</html>
