@@ -1,5 +1,6 @@
+import os
 from flask import Blueprint, jsonify, request
-from database.connection import supabase, supabase_operation, bucket, bucket_employees
+from database.connection import supabase, supabase_operation, bucket_petcare, bucket_employees
 
 # All routes in this file will use the prefix "/employees"
 employee_blueprint = Blueprint("employees", __name__, url_prefix="/employees")
@@ -8,7 +9,7 @@ employee_blueprint = Blueprint("employees", __name__, url_prefix="/employees")
 employee_table = supabase.table('employee')
 
 # All the bucket operations use the employee bucket
-bucket = supabase.storage.from_(bucket)
+bucket = supabase.storage.from_(bucket_petcare)
 
 # Define get root route
 @employee_blueprint.get("/")
@@ -57,7 +58,7 @@ def save_employee():
     if 'image' in request.files:
         try:
             file = request.files['image']
-            file_name = f"{employee['email']}_{file.filename}"
+            file_name = employee['email']
 
             result = bucket.upload(f"{bucket_employees}/{file_name}", file.stream.read())
 
@@ -88,17 +89,30 @@ def update_employee(id):
     }
 
     if 'image' in request.files:
+        file = request.files['image']
+
         try:
-            file = request.files['image']
-            file_name = f"{employee['email']}_{file.filename}"
+            # look for employee before save ther changes
+            found_employee = employee_table.select("*").eq("id", id).execute()
+            # get current email from employee
+            found_employee_file_name = found_employee.data[0]["email"]
 
-            file_list = bucket.list()
+            files_list = bucket.list('Employees')
 
-            file_exists = any(file_info['name'] == file_name for file_info in file_list)
+            # file_exists = False
+            for file_info in files_list:
+                file_name, extension = os.path.splitext(file_info["name"])
+
+                if file_name == found_employee_file_name:
+                    file_exists = True
+                    break
+
+            print(f"file_exists: {file_exists}")
+            print(f"file_name: {file_name}")
+            print(f"file: {file}")
 
             if file_exists:
                 result = bucket.update(f"{bucket_employees}/{file_name}", file.stream.read())
-
             else:
                 result = bucket.upload(f"{bucket_employees}/{file_name}", file.stream.read())
 

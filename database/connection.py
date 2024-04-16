@@ -7,7 +7,7 @@ url: str = os.getenv("SUPABASE_URL")
 key: str = os.getenv("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
 
-bucket = 'PetCare_Files'
+bucket_petcare = 'PetCare_Files'
 bucket_employees = 'Employees'
 bucket_products = 'Products'
 
