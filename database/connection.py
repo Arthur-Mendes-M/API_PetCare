@@ -11,7 +11,7 @@ bucket = 'PetCare_Files'
 bucket_employees = 'Employees'
 bucket_products = 'Products'
 
-# supabase.storage.create_bucket('employeesphoto', options={"public": True})
+# supabase.storage.create_bucket(bucket, options={"public": True})
 
 def supabase_operation(operation):
     try:

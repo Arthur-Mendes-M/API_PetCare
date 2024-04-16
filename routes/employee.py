@@ -13,11 +13,22 @@ bucket = supabase.storage.from_(bucket)
 # Define get root route
 @employee_blueprint.get("/")
 def get_all_employees():
-    # Transform the object (sql or error) on json
+    # If not exists request body
+    if request.content_length == 0 or request.content_length == None:
+        return jsonify(
+            supabase_operation(
+                employee_table
+                .select("*")
+            )
+        )
+
+    employee_data = request.json
+    email = employee_data["email"]
+    password = employee_data["password"]
+
     return jsonify(
         supabase_operation(
-            employee_table
-            .select("*")
+            employee_table.select("*").match({'email': email, 'password': password})
         )
     )
 
@@ -35,8 +46,6 @@ def get_employee_by_id(id):
 def save_employee():
     employee = request.form
 
-    print(request)
-
     employee = {
         "name": employee.get('name'), 
         "email": employee.get('email'), 
@@ -53,13 +62,11 @@ def save_employee():
             result = bucket.upload(f"{bucket_employees}/{file_name}", file.stream.read())
 
             if result.status_code == 200:
-                employee['avatarUrl'] = bucket.get_public_url(file_name)
+                employee['avatarUrl'] = bucket.get_public_url(f"{bucket_employees}/{file_name}")
         except Exception as e:
             return jsonify({"error": str(e)})
 
     employee = {key.lower(): value for key, value in employee.items()}
-
-    print(employee)
 
     return jsonify(
         supabase_operation(
@@ -81,7 +88,6 @@ def update_employee(id):
     }
 
     if 'image' in request.files:
-        print(f"have image {request.files}")
         try:
             file = request.files['image']
             file_name = f"{employee['email']}_{file.filename}"
@@ -97,7 +103,7 @@ def update_employee(id):
                 result = bucket.upload(f"{bucket_employees}/{file_name}", file.stream.read())
 
             if result.status_code == 200:
-                employee['avatarUrl'] = bucket.get_public_url(file_name)
+                employee['avatarUrl'] = bucket.get_public_url(f"{bucket_employees}/{file_name}")
                 
         except Exception as e:
             return jsonify({"error": str(e)})

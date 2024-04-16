@@ -7,7 +7,8 @@ from routes.employee import employee_blueprint
 # Set variables to import on html
 html_variables = {
     "logo": "/images/PetCare.svg",
-    "exemple_url_pattern": "/images/url_pattern.png"
+    "exemple_url_pattern": "/images/url_pattern.png",
+    "favicon": "/images/favicon.svg"
 }
 
 # Create flask instance and save blueprints
