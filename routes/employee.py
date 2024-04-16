@@ -99,17 +99,13 @@ def update_employee(id):
 
             files_list = bucket.list('Employees')
 
-            # file_exists = False
+            file_exists = False
             for file_info in files_list:
                 file_name, extension = os.path.splitext(file_info["name"])
 
                 if file_name == found_employee_file_name:
                     file_exists = True
                     break
-
-            print(f"file_exists: {file_exists}")
-            print(f"file_name: {file_name}")
-            print(f"file: {file}")
 
             if file_exists:
                 result = bucket.update(f"{bucket_employees}/{file_name}", file.stream.read())
