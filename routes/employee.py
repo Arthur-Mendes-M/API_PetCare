@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from database.connection import supabase, supabase_operation, bucket_petcare, bucket_employees
+from lib.flask_bcrypt import encode_password, verify_encoded_password
 
 # All routes in this file will use the prefix "/employees"
 employee_blueprint = Blueprint("employees", __name__, url_prefix="/employees")
@@ -15,25 +16,45 @@ bucket = supabase.storage.from_(bucket_petcare)
 def get_all_employees():
     # If not exists request body
     if request.content_length == 0 or request.content_length == None:
-        return supabase_operation(
-            employee_table
-            .select("*")
+        return jsonify(
+            supabase_operation(
+                employee_table
+                .select("*")
+            )
         )
 
     employee_data = request.json
     email = employee_data["email"]
     password = employee_data["password"]
 
-    return supabase_operation(
-        employee_table.select("*").match({'email': email, 'password': password})
+    # query -> look for email eq
+    found_employee = supabase_operation(
+        employee_table.select("*").eq('email', email)
     )
+
+    if found_employee:
+        employee = found_employee[0]
+        encoded_password = employee["password"]
+
+        # verify if input password is equal to saved encoded password
+        if verify_encoded_password(encoded_password, password):
+            return jsonify(
+                found_employee
+            )
+    else:
+        return jsonify({
+            "error": "email or password is wrong"
+        })
+    
 
 @employee_blueprint.get("/<id>")
 def get_employee_by_id(id):
-    return supabase_operation(
-        employee_table
-        .select("*")
-        .eq("id", id)
+    return jsonify(
+            supabase_operation(
+            employee_table
+            .select("*")
+            .eq("id", id)
+        )
     )
 
 @employee_blueprint.post("/")
@@ -43,7 +64,7 @@ def save_employee():
     employee = {
         "name": employee.get('name'), 
         "email": employee.get('email'), 
-        "password": employee.get('password'),
+        "password": encode_password(employee.get('password')),
         "role": employee.get('role'),
         "salesCount": employee.get('salesCount')
     }
@@ -62,9 +83,11 @@ def save_employee():
 
     employee = {key.lower(): value for key, value in employee.items()}
 
-    return supabase_operation(
-        employee_table
-        .insert(employee)
+    return jsonify(
+        supabase_operation(
+            employee_table
+            .insert(employee)
+        )
     )
 
 @employee_blueprint.put("/<id>")
@@ -82,7 +105,7 @@ def update_employee(id):
     employee = {
         "name": employee.get('name'),
         "email": employee.get('email'), 
-        "password": employee.get('password'),
+        "password": encode_password(employee.get('password')),
         "role": employee.get('role'),
         "salesCount": employee.get('salesCount')
     }
@@ -111,10 +134,12 @@ def update_employee(id):
 
     employee = {key.lower(): value for key, value in employee.items()}
 
-    return supabase_operation(
-        employee_table
-        .update(employee)
-        .eq("id", id)
+    return jsonify(
+        supabase_operation(
+            employee_table
+            .update(employee)
+            .eq("id", id)
+        )
     )
 
 @employee_blueprint.delete("/<id>")

@@ -17,6 +17,6 @@ bucket_products = 'Products'
 
 def supabase_operation(operation):
     try:
-        return jsonify(operation.execute().data)
+        return operation.execute().data
     except Exception as e:        
         return jsonify({ "error": str(e.details)})

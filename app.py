@@ -1,8 +1,15 @@
+from werkzeug.exceptions import HTTPException
+import json
 from flask import Flask, render_template
 from auth import protect_routes
 
 # Import blueprints
 from routes.employee import employee_blueprint
+
+# Create flask instance and save blueprints
+app = Flask(__name__, static_folder="./images")
+
+app.register_blueprint(employee_blueprint)
 
 # Set variables to import on html
 html_variables = {
@@ -11,19 +18,29 @@ html_variables = {
     "favicon": "/images/favicon.svg"
 }
 
-# Create flask instance and save blueprints
-app = Flask(__name__, static_folder="./images")
-app.register_blueprint(employee_blueprint)
+# Protects routes before all requests
+@app.before_request
+def before_request():
+    return protect_routes()
 
 # Default route - documentation
 @app.route("/")
 def get_documentation():
     return render_template('index.html', html_variables=html_variables)
 
-# Protects routes before all requests
-@app.before_request
-def before_request():
-    return protect_routes()
+@app.errorhandler(HTTPException)
+def handle_exception(e):
+    """Return JSON instead of HTML for HTTP errors."""
+    # start with the correct headers and status code from the error
+    response = e.get_response()
+    # replace the body with JSON
+    response.data = json.dumps({
+        "code": e.code,
+        "name": e.name,
+        "description": e.description,
+    })
+    response.content_type = "application/json"
+    return response
 
 # if __name__ == "__main__":
 #     app.run(host='localhost', port=5500, debug=True)

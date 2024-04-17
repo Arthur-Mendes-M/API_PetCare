@@ -1,4 +1,5 @@
 Flask
 Gunicorn
 Supabase
+flask-bcrypt
 python-dotenv
