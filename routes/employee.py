@@ -41,10 +41,10 @@ def get_all_employees():
             return jsonify(
                 found_employee
             )
-    else:
-        return jsonify({
-            "error": "email or password is wrong"
-        })
+
+    return jsonify({
+        "error": "email or password is wrong"
+    })
     
 
 @employee_blueprint.get("/<id>")
