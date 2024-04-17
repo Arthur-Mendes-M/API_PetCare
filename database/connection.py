@@ -1,4 +1,5 @@
 import os
+from flask import jsonify
 from supabase import create_client, Client
 from dotenv import load_dotenv
 load_dotenv()
@@ -15,6 +16,6 @@ bucket_products = 'Products'
 
 def supabase_operation(operation):
     try:
-        return operation.execute().data
-    except Exception as e:
-        return {"error": str(e)}
+        return jsonify(operation.execute().data)
+    except Exception as e:        
+        return jsonify({ "error": str(e.details)})

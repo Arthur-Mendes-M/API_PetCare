@@ -1,4 +1,3 @@
-import os
 from flask import Blueprint, jsonify, request
 from database.connection import supabase, supabase_operation, bucket_petcare, bucket_employees
 
@@ -16,31 +15,25 @@ bucket = supabase.storage.from_(bucket_petcare)
 def get_all_employees():
     # If not exists request body
     if request.content_length == 0 or request.content_length == None:
-        return jsonify(
-            supabase_operation(
-                employee_table
-                .select("*")
-            )
+        return supabase_operation(
+            employee_table
+            .select("*")
         )
 
     employee_data = request.json
     email = employee_data["email"]
     password = employee_data["password"]
 
-    return jsonify(
-        supabase_operation(
-            employee_table.select("*").match({'email': email, 'password': password})
-        )
+    return supabase_operation(
+        employee_table.select("*").match({'email': email, 'password': password})
     )
 
 @employee_blueprint.get("/<id>")
 def get_employee_by_id(id):
-    return jsonify(
-        supabase_operation(
-            employee_table
-            .select("*")
-            .eq("id", id)
-        )
+    return supabase_operation(
+        employee_table
+        .select("*")
+        .eq("id", id)
     )
 
 @employee_blueprint.post("/")
@@ -69,17 +62,23 @@ def save_employee():
 
     employee = {key.lower(): value for key, value in employee.items()}
 
-    return jsonify(
-        supabase_operation(
-            employee_table
-            .insert(employee)
-        )
+    return supabase_operation(
+        employee_table
+        .insert(employee)
     )
 
 @employee_blueprint.put("/<id>")
 def update_employee(id):
     employee = request.form
+    
+    # look for employee before save the changes
+    found_employee = employee_table.select("*").eq("id", id).execute()
 
+    if not found_employee:
+        return jsonify(
+            found_employee
+        )
+    
     employee = {
         "name": employee.get('name'),
         "email": employee.get('email'), 
@@ -92,58 +91,58 @@ def update_employee(id):
         file = request.files['image']
 
         try:
-            # look for employee before save ther changes
-            found_employee = employee_table.select("*").eq("id", id).execute()
-            # get current email from employee
-            found_employee_file_name = found_employee.data[0]["email"]
+            # get current email from employee (infos before changes)
+            current_file_name = found_employee.data[0]["email"]
 
-            files_list = bucket.list('Employees')
+            # get new email for name of photo file
+            new_file_name = employee["email"]
 
-            file_exists = False
-            for file_info in files_list:
-                file_name, extension = os.path.splitext(file_info["name"])
+            # remove old photo 
+            bucket.remove(f"{bucket_employees}/{current_file_name}")
 
-                if file_name == found_employee_file_name:
-                    file_exists = True
-                    break
-
-            if file_exists:
-                result = bucket.update(f"{bucket_employees}/{file_name}", file.stream.read())
-            else:
-                result = bucket.upload(f"{bucket_employees}/{file_name}", file.stream.read())
+            # save new photo
+            result = bucket.upload(f"{bucket_employees}/{new_file_name}", file.stream.read())
 
             if result.status_code == 200:
-                employee['avatarUrl'] = bucket.get_public_url(f"{bucket_employees}/{file_name}")
-                
+                employee['avatarUrl'] = bucket.get_public_url(f"{bucket_employees}/{new_file_name}")
+
         except Exception as e:
             return jsonify({"error": str(e)})
 
     employee = {key.lower(): value for key, value in employee.items()}
 
-    return jsonify(
-        supabase_operation(
-            employee_table
-            .update(employee)
-            .eq("id", id)
-        )
+    return supabase_operation(
+        employee_table
+        .update(employee)
+        .eq("id", id)
     )
 
 @employee_blueprint.delete("/<id>")
 def delete_employee(id):
-    deleted_employee = supabase_operation(
+    found_employee = employee_table.select("*").eq("id", id).execute().data
+
+    if not found_employee:
+        return jsonify(
+           {
+               "error": "Index out of the range"
+           }
+        )
+
+    # delete employee
+    supabase_operation(
         employee_table
         .delete()
         .eq("id", id)
     )
 
-    file_url = deleted_employee['avatarurl']
+    file_name = found_employee[0]['email']
 
-    if file_url.endswith('?'):
-        file_url = file_url[:-1]
+    all_files_on_employees = bucket.list(bucket_employees)
+    for file in all_files_on_employees:
+        if file["name"] == file_name:
+            bucket.remove([f'{bucket_employees}/{file_name}'])
+            break
 
-    file_name = file_url.split()[-1]
-
-    bucket.remove([f'{bucket_employees}/{file_name}'])
     return jsonify(
-        deleted_employee
+        found_employee
     )
