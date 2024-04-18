@@ -1,15 +1,9 @@
-from flask import Blueprint, jsonify, request
-from database.connection import supabase, supabase_operation, bucket_petcare, bucket_employees
+from flask import jsonify, request, Blueprint
+from database.connection import supabase_operation, employee_table, petcare_bucket, employees_bucket_folder_path, update_file_bucket
 from lib.flask_bcrypt import encode_password, verify_encoded_password
 
-# All routes in this file will use the prefix "/employees"
+# set blueprint for employees route
 employee_blueprint = Blueprint("employees", __name__, url_prefix="/employees")
-
-# All the operations used here, will use "employees" table
-employee_table = supabase.table('employee')
-
-# All the bucket operations use the employee bucket
-bucket = supabase.storage.from_(bucket_petcare)
 
 # Define get root route
 @employee_blueprint.get("/")
@@ -46,7 +40,6 @@ def get_all_employees():
         "error": "email or password is wrong"
     })
     
-
 @employee_blueprint.get("/<id>")
 def get_employee_by_id(id):
     return jsonify(
@@ -74,10 +67,10 @@ def save_employee():
             file = request.files['image']
             file_name = employee['email']
 
-            result = bucket.upload(f"{bucket_employees}/{file_name}", file.stream.read())
+            result = petcare_bucket.upload(f"{employees_bucket_folder_path}/{file_name}", file.stream.read())
 
             if result.status_code == 200:
-                employee['avatarUrl'] = bucket.get_public_url(f"{bucket_employees}/{file_name}")
+                employee['avatarUrl'] = petcare_bucket.get_public_url(f"{employees_bucket_folder_path}/{file_name}")
         except Exception as e:
             return jsonify({"error": str(e)})
 
@@ -103,34 +96,36 @@ def update_employee(id):
         )
     
     employee = {
-        "name": employee.get('name'),
-        "email": employee.get('email'), 
-        "password": encode_password(employee.get('password')),
-        "role": employee.get('role'),
-        "salesCount": employee.get('salesCount')
+        "name": employee.get('name') if employee.get('name') else found_employee.data[0]['name'],
+        "email": employee.get('email') if employee.get('email') else found_employee.data[0]['email'], 
+        "password": encode_password(employee.get('password')) if employee.get('password') else found_employee.data[0]['password'],
+        "role": employee.get('role') if employee.get('role') else found_employee.data[0]['role'],
+        "salesCount": employee.get('salesCount') if employee.get('salesCount') else found_employee.data[0]['salescount']
     }
 
     if 'image' in request.files:
         file = request.files['image']
 
-        try:
-            # get current email from employee (infos before changes)
-            current_file_name = found_employee.data[0]["email"]
+        # invoke change photo file 
+        current_file_name = found_employee.data[0]["email"]
+        new_file_name = employee["email"]
 
-            # get new email for name of photo file
-            new_file_name = employee["email"]
+        updated = update_file_bucket(petcare_bucket, employees_bucket_folder_path, current_file_name, new_file_name, file)
 
-            # remove old photo 
-            bucket.remove(f"{bucket_employees}/{current_file_name}")
+        if 'data' in updated:
+            employee['avatarUrl'] = updated["data"]
 
-            # save new photo
-            result = bucket.upload(f"{bucket_employees}/{new_file_name}", file.stream.read())
+    if employee.get('email') and not 'image' in request.files:
+        # change photo file on bucket
+        current_file_name = found_employee.data[0]['email']
+        new_file_name = employee.get('email')
 
-            if result.status_code == 200:
-                employee['avatarUrl'] = bucket.get_public_url(f"{bucket_employees}/{new_file_name}")
+        # download current photo (to get file varible)
+        file_as_byte = petcare_bucket.download(f"{employees_bucket_folder_path}/{current_file_name}")
 
-        except Exception as e:
-            return jsonify({"error": str(e)})
+        current_file_name = found_employee.data[0]["email"]
+
+        employee['avatarUrl'] = update_file_bucket(petcare_bucket, employees_bucket_folder_path, current_file_name, new_file_name, file_as_byte)['data']
 
     employee = {key.lower(): value for key, value in employee.items()}
 
@@ -162,10 +157,10 @@ def delete_employee(id):
 
     file_name = found_employee[0]['email']
 
-    all_files_on_employees = bucket.list(bucket_employees)
+    all_files_on_employees = petcare_bucket.list(employees_bucket_folder_path)
     for file in all_files_on_employees:
         if file["name"] == file_name:
-            bucket.remove([f'{bucket_employees}/{file_name}'])
+            petcare_bucket.remove([f'{employees_bucket_folder_path}/{file_name}'])
             break
 
     return jsonify(
