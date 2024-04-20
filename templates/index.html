@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +9,8 @@
     <!-- Importing tailwind css -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Config for tailwind extra variables -->
     <script>
+        // config tailwind css variables
         tailwind.config = {
           theme: {
             extend: {
@@ -27,19 +27,56 @@
           }
         }
     </script>
+
+    <style>
+        /* scroll bar */
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        /* Track */
+        ::-webkit-scrollbar-track {
+            /* background: #1f1f1f; */
+            background: transparent;
+        }
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #56A7F0;
+            border-radius: 2rem;
+            transition: .3s all ease-in-out;
+        }
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #389BF2;
+        }
+    </style>
 </head>
 <body class="bg-yellow_one flex flex-col min-h-screen">
-    <header class="w-full h-[70px] bg-yellow_two flex items-center justify-center p-2 shadow-sm">
+    <header class="w-full h-[70px] bg-yellow_two flex items-center justify-between px-6 py-2 shadow-xl top-0 left-0 sticky z-50 md:px-20 md:py-4 flex-wrap">
         <img src="{{ html_variables['logo'] }}" alt="PetCare - API" class="h-8">
+
+        <nav>
+            <ul class="flex items-center gap-6">
+                <li>
+                    <a href="#">Inicio</a>
+                </li>
+                <li>
+                    <a href="#token">Token</a>
+                </li>
+                <li>
+                    Endpoints
+                </li>
+            </ul>
+        </nav>
     </header>
 
-    <main class="grow px-6 py-3 flex flex-col gap-6 w-full md:px-12 md:py-6">
+    <main class="grow px-6 py-3 flex flex-col gap-6 w-full md:px-20 md:py-6">
         <section class="flex flex-wrap justify-center gap-3 md:justify-between">
-            <div class="md:max-w-[45%]">
+            <div class="md:max-w-[40%]">
                 <h1 class="text-3xl mb-3">Sobre o <strong class="text-green_petcare font-normal">PetCare.</strong></h1>
                 <p>PetCare é a forma <mark class="italic bg-light_blue p-1 text-white font-mono">simples, organizada e centralizada</mark> em um sistema multi-plataforma para te auxiliar na gestão do <u class="decoration-pink_petcare text-pink_petcare font-bold">seu petshop</u>.
             </div>
-            <div class="md:max-w-[45%]">
+            <div class="md:max-w-[40%]">
                 <h1 class="text-3xl mb-3">Sobre a  <strong class="text-green_petcare font-normal">API</strong></h1>
                 <p>Este é o <mark class="italic bg-light_blue p-1 text-white font-mono">endpoint</mark> raiz da API do <u class="decoration-pink_petcare text-pink_petcare font-bold">PetCare.</u> Aqui você terá um guia completo de como utilizar todos os endpoints da <u class="decoration-green_petcare text-green_petcare font-bold">API PetCare connect.</u></p>
             </div>
@@ -47,7 +84,7 @@
        
         <hr class="h-[3px] bg-pink_petcare">
 
-        <section>
+        <section id="token">
             <h1 class="text-3xl mb-3"><strong class="text-pink_petcare font-normal">Token</strong> de segurança</h1>
             <div class="flex flex-wrap justify-between gap-3 w-full">
                 <div class="w-full md:max-w-[45%]">
@@ -57,8 +94,8 @@
                     <p>
                         O token é lido através do <u class="no-underline text-pink_petcare">query paramenter</u> (parametro de busca) nomeado <code class="bg-light_blue text-white p-1">auth</code> onde, na url do endpoint a ser utilizado, é necessário específica-lo. Como no <u class="no-underline text-dark_blue">exemplo</u>:
     
-                        <code class="my-3 p-2 block rounded-md border border-dark_blue shadow-sm break-words">
-                            https://api-petcare.onrender.com//Employees<u class="no-underline text-green_petcare font-bold">?auth=&lt;TOKEN&gt;</u>
+                        <code class="my-3 p-2 block rounded-md border border-dark_blue shadow-xl break-words">
+                            https://api-petcare.onrender.com/Employees<u class="no-underline text-green_petcare font-bold">?auth=&lt;TOKEN&gt;</u>
                         </code>
                     </p>
                     <p>
@@ -77,14 +114,369 @@
         </section>
 
         <hr class="h-[3px] bg-green_petcare">
-        <h1 class="text-3xl text-center"><strong class="text-green_petcare font-normal">Endpoints</strong> - URL's</h1>
+            <h1 class="text-3xl text-center"><strong class="text-green_petcare font-normal">Endpoints</strong> - <strong class="font-normal text-pink_petcare">Funcionários</strong></h1>
         <hr class="h-[3px] bg-green_petcare">
 
-        <section>
-            <div>
-                <h2>Funcionários</h2>
+        <section id="employees">
+            <div class="mt-2 mb-8" id="entity_employee">
+                <h3 class="text-md">Entidade Funcionário</h3>
+                 <code class="mb-3 p-2 block rounded-md border border-dark_blue shadow-xl break-words italic w-fit">
+                    <strong class="text-dark_blue">Atributo/campo</strong> 
+                    <strong class="font-normal text-green_petcare">&lt;Tipo&gt;</strong> | <mark class="italic bg-pink_petcare p-1 text-white font-mono">Regras SQL</mark>
+                </code>
+                <ul class="list-disc mx-6">
+                    <li><strong class="text-dark_blue">avatarurl</strong><strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
+                    <li><strong class="text-dark_blue">name</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark></li>
+                    <li><strong class="text-dark_blue">email</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">unique</mark> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark></li>
+                    <li><strong class="text-dark_blue">password</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark></li>
+                    <li><strong class="text-dark_blue">role</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
+                    <li><strong class="text-dark_blue">salescount</strong> <strong class="font-normal text-green_petcare">&lt;Int&gt;</strong></li>
+                </ul>
+            </div>
 
+            <hr class="h-[2px] w-1/2 translate-x-1/2 my-6 bg-green_petcare" id="GET_employee">
+
+            <!-- GET -->
+            <div>
+                <div class="mb-9 flex flex-col items-center">
+                    <h3 class="text-2xl w-fit"><mark class="bg-green_petcare py-1 px-3 text-white font-mono">GET</mark></h3>
+
+                    <p class="max-w-2xl text-center">No endpoint dos funcionários, com a rota GET, existem duas opções, onde ambas utilizam da mesma url. O que diferencia as duas é o corpo da requisição (body).</p>
+                    <p class="text-pink_petcare w-full text-lg mt-3">Endpoint</p>
+                    <code class="w-full block rounded-md border border-pink_petcare shadow-xl break-words md:flex md:justify-between">
+                        <p class="px-2 py-2 w-fit self-center break-all" data-clipboard-text>
+                            https://api-petcare.onrender.com/<u class="no-underline text-pink_petcare font-bold">Employees</u>?auth=&lt;TOKEN&gt;</u>
+                        </p>
+    
+                        <div class="relative pl-2 md:pl-0 flex justify-center items-center">
+                            <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-pink_petcare text-pink_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+    
+                                <p class="text-xs font-sans">Copiar</p>
+                            </button>
+                        </div>
+                    </code>
+                    <small class="italic w-full">Essa é a URL padrão para o endpoint 'Employees'</small>
+                </div>
+                
+                <div class="flex flex-col gap-3">
+                    <div class="mb-3">
+                        <h4 class="text-lg mb-1 ">Buscar <strong class="text-light_blue font-normal">todos</strong> os funcionários</h4>
+                        <div class="mb-3">
+                            <h5>Corpo da requisição | <strong class="text-green_petcare font-normal">Nenhum</strong></h5>
+                            <div class="flex items-center gap-5">
+                                <code class="block w-fit rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                    <p class="px-2 py-2 w-fit self-center break-all">
+                                        Nenhum / Não precisa
+                                    </p>
+                                </code>
+        
+                                <h4 class="italic"><i data-lucide="arrow-big-right-dash" class="inline text-light_blue"></i> Basta somente chamar a  <strong class="text-light_blue font-normal">url padrão</strong> para esse endpoint</h4>
+                            </div>
+                        </div>
+                        <div>
+                            <h5>Resposta da API | <strong class="text-green_petcare font-normal">JSON / Array</strong></h5>
+
+                            <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
+                                        &emsp;&ensp;"avatarurl": "link_para_foto",
+                                        &emsp;&ensp;"name": "nome_do_funcionario",
+                                        &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
+                                        &emsp;&ensp;"password": "senha_do_funcionario",
+                                        &emsp;&ensp;"role": "cargo_do_usuario",
+                                        &emsp;&ensp;"salescount": "quantidade_de_vendas",
+                                    }]
+                                </p>
+    
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-light_blue text-light_blue p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+    
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY, logo, para acessar o objeto do funcionário, é necessário acessar o primeiro elemento.</small>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg mb-1"><strong class="text-pink_petcare font-normal">Validar o acesso</strong> de um funcionário específico</u></h4>
+                        <p>Corpo da requisição | <strong class="text-green_petcare font-normal">JSON</strong></p>
+                        <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                            <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>{
+                                &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
+                                &emsp;&ensp;"password": "senha_do_funcionario"
+                            }</p>
+
+                            <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-green_petcare text-green_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                    <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                    <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                    <p class="text-xs font-sans">Copiar</p>
+                                </button>
+                            </div>
+                        </code>
+                        <small class="italic">Obrigatório: formato JSON e os campos: email e password</small>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="h-[2px] w-1/2 translate-x-1/2 my-6 bg-light_blue" id="POST_employee">
+            <!-- POST -->
+            <div>
+                <div class="mb-9 flex flex-col items-center">
+                    <h3 class="text-2xl w-fit"><mark class="bg-light_blue py-1 px-3 text-white font-mono">POST</mark></h3>
+
+                    <p class="max-w-2xl text-center">Na rota POST é necessário que o corpo da requisição (body) seja passado em formato <strong>multipart/form-data.</strong></p>
+                    <p class="text-pink_petcare w-full text-lg mt-3">Endpoint</p>
+                    <code class="w-full block rounded-md border border-pink_petcare shadow-xl break-words md:flex md:justify-between">
+                        <p class="px-2 py-2 w-fit self-center break-all" data-clipboard-text>
+                            https://api-petcare.onrender.com/<u class="no-underline text-pink_petcare font-bold">Employees</u>?auth=&lt;TOKEN&gt;</u>
+                        </p>
+    
+                        <div class="relative pl-2 md:pl-0 flex justify-center items-center">
+                            <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-pink_petcare text-pink_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+    
+                                <p class="text-xs font-sans">Copiar</p>
+                            </button>
+                        </div>
+                    </code>
+                    <small class="italic w-full">Na rota POST a URL se mantém a padrão do endpoint 'Employees'</small>
+                </div>
+                
+                <div class="flex flex-col gap-3">
+                    <div class="mb-3">
+                        <h4 class="text-lg mb-1 "><strong class="text-dark_blue font-normal">Cadastrando</strong> um funcionário com <u class="decoration-wavy decoration-green_petcare">todos os campos</u></h4>
+                        <div class="mb-3">
+                            <h5>Corpo da requisição | <strong class="text-green_petcare font-normal">JSON</strong></h5>
+                            <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>{
+                                        &emsp;&ensp;"image": &lt;arquivo_de_imagem&gt;,
+                                        &emsp;&ensp;"name": "nome_do_funcionario",
+                                        &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
+                                        &emsp;&ensp;"password": "senha_do_funcionario",
+                                        &emsp;&ensp;"role": "cargo_do_usuario",
+                                        &emsp;&ensp;"salescount": "quantidade_de_vendas",
+                                    }
+                                </p>
+    
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-light_blue text-light_blue p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+    
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full flex items-center gap-1">
+                                <i data-lucide="circle-alert" class="w-[1.3rem] text-pink_petcare"></i>
+                                Os elementos OBRIGATÓRIOS são somente: <strong class="font-normal text-pink_petcare">"name"</strong>, <strong class="font-normal text-pink_petcare">"email"</strong> e <strong class="font-normal text-pink_petcare">"password"</strong>.
+                            </small>
+                        </div>
+                        <div>
+                            <h5>Resposta da API | <strong class="text-green_petcare font-normal">JSON / Array</strong></h5>
+
+                            <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
+                                        &emsp;&ensp;"avatarurl": "link_para_foto" | Null,
+                                        &emsp;&ensp;"name": "nome_do_funcionario",
+                                        &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
+                                        &emsp;&ensp;"password": "senha_do_funcionario",
+                                        &emsp;&ensp;"role": "cargo_do_usuario" | Null,
+                                        &emsp;&ensp;"salescount": "quantidade_de_vendas" | Null,
+                                    }]
+                                </p>
+    
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-green_petcare text-green_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+    
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY, logo, para acessar o objeto do funcionário, é necessário acessar o primeiro elemento.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="h-[2px] w-1/2 translate-x-1/2 my-6 bg-green_petcare" id="PUT_employee">
+            <!-- PUT -->
+            <div>
+                <div class="mb-9 flex flex-col items-center">
+                    <h3 class="text-2xl w-fit"><mark class="bg-green_petcare py-1 px-3 text-white font-mono">PUT</mark></h3>
+
+                    <p class="max-w-2xl text-center">Na rota PUT é necessário que o corpo da requisição (body) seja passado em formato <strong>multipart/form-data</strong> com os dados a serem alterados (podendo ser somente o que for alterado), e na url da rota, o <u class="decoration-wavy decoration-green_petcare text-green_petcare">id do funcionário</u> a ser atualizado.</p>
+                    <p class="text-pink_petcare w-full text-lg mt-3">Endpoint</p>
+                    <code class="w-full block rounded-md border border-pink_petcare shadow-xl break-words md:flex md:justify-between">
+                        <p class="px-2 py-2 w-fit self-center break-all" data-clipboard-text>
+                            https://api-petcare.onrender.com/<u class="no-underline text-pink_petcare font-bold">Employees/&lt;id&gt;</u>?auth=&lt;TOKEN&gt;</u>
+                        </p>
+    
+                        <div class="relative pl-2 md:pl-0 flex justify-center items-center">
+                            <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-pink_petcare text-pink_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+    
+                                <p class="text-xs font-sans">Copiar</p>
+                            </button>
+                        </div>
+                    </code>
+                    <small class="italic w-full">Na rota PUT a URL precisa receber o id do funcionário ser atualizado.</small>
+                </div>
+                
+                <div class="flex flex-col gap-3">
+                    <div class="mb-3">
+                        <h4 class="text-lg mb-1 "><strong class="text-dark_blue font-normal">Atualizando</strong> um funcionário
+
+                        <div class="mb-3">
+                            <h5>Corpo da requisição | <strong class="text-green_petcare font-normal">multipart/form-data</strong></h5>
+                            <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>{
+                                        &emsp;&ensp;"image": &lt;arquivo_de_imagem&gt;,
+                                        &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
+                                        &emsp;&ensp;"role": "cargo_do_usuario",
+                                    }
+                                </p>
+    
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-light_blue text-light_blue p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+    
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">
+                                Nessa rota é necessário somente um <strong class="font-normal text-pink_petcare">id existente</strong> de funcionário e algum campo com um valor novo.
+                            </small>
+                        </div>
+                        <div>
+                            <h5>Resposta da API | <strong class="text-green_petcare font-normal">JSON / Array</strong></h5>
+
+                            <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
+                                        &emsp;&ensp;"avatarurl": "link_para_foto" | Null,
+                                        &emsp;&ensp;"name": "nome_do_funcionario",
+                                        &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
+                                        &emsp;&ensp;"password": "senha_do_funcionario",
+                                        &emsp;&ensp;"role": "cargo_do_usuario" | Null,
+                                        &emsp;&ensp;"salescount": "quantidade_de_vendas" | Null,
+                                    }]
+                                </p>
+    
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-green_petcare text-green_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+    
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY, logo, para acessar o objeto do funcionário, é necessário acessar o primeiro elemento.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="h-[2px] w-1/2 translate-x-1/2 my-6 bg-pink_petcare" id="DELETE_employee">
+
+            <!-- DELETE -->
+            <div>
+                <div class="mb-9 flex flex-col items-center">
+                    <h3 class="text-2xl w-fit"><mark class="bg-pink_petcare py-1 px-3 text-white font-mono">DELETE</mark></h3>
+
+                    <p class="max-w-2xl text-center">Na rota DELETE é necessário somente o <u class="decoration-wavy decoration-pink_petcare text-pink_petcare">id válido</u> de um funcionário existente. Sem a necessidade do corpo de requisição.</p>
+                    <p class="text-pink_petcare w-full text-lg mt-3">Endpoint</p>
+                    <code class="w-full block rounded-md border border-pink_petcare shadow-xl break-words md:flex md:justify-between">
+                        <p class="px-2 py-2 w-fit self-center break-all" data-clipboard-text>
+                            https://api-petcare.onrender.com/<u class="no-underline text-pink_petcare font-bold">Employees/&lt;id&gt;</u>?auth=&lt;TOKEN&gt;</u>
+                        </p>
+    
+                        <div class="relative pl-2 md:pl-0 flex justify-center items-center">
+                            <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-pink_petcare text-pink_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+    
+                                <p class="text-xs font-sans">Copiar</p>
+                            </button>
+                        </div>
+                    </code>
+                    <small class="italic w-full">Na rota PUT a URL precisa receber o id do funcionário a ser deletado.</small>
+                </div>
+                
+                <div class="flex flex-col gap-3">
+                    <div class="mb-3">
+                        <h4 class="text-lg mb-1 "><strong class="text-pink_petcare font-normal">Deletando</strong> um funcionário</h4>
+                        <div class="mb-3">
+                            <h5>Corpo da requisição | <strong class="text-green_petcare font-normal">Nenhum</strong></h5>
+                            <code class="block w-fit rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                <p class="px-2 py-2 w-fit self-center break-all">
+                                    Nenhum / Não precisa
+                                </p>
+                            </code>
+                        </div>
+                        <div>
+                            <h5>Resposta da API | <strong class="text-green_petcare font-normal">JSON / Array</strong></h5>
+
+                            <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
+                                        &emsp;&ensp;"avatarurl": "link_para_foto" | Null,
+                                        &emsp;&ensp;"name": "nome_do_funcionario",
+                                        &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
+                                        &emsp;&ensp;"password": "senha_do_funcionario",
+                                        &emsp;&ensp;"role": "cargo_do_usuario" | Null,
+                                        &emsp;&ensp;"salescount": "quantidade_de_vendas" | Null,
+                                    }]
+                                </p>
+    
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-green_petcare text-green_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+    
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY, logo, para acessar o objeto do funcionário, é necessário acessar o primeiro elemento.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="h-[3px] bg-green_petcare">
+            <h1 class="text-3xl text-center"><strong class="text-green_petcare font-normal">Endpoints</strong> - <strong class="font-normal text-pink_petcare">Produtos</strong></h1>
+        <hr class="h-[3px] bg-green_petcare">
+
+        <section id="products">
+            <div class="mt-2 mb-8" id="entity_employee">
+                <h3 class="text-md">Entidade Produto</h3>
+                 <code class="mb-3 p-2 block rounded-md border border-dark_blue shadow-xl break-words italic w-fit">
+                    <strong class="text-dark_blue">Atributo/campo</strong> 
+                    <strong class="font-normal text-green_petcare">&lt;Tipo&gt;</strong> | <mark class="italic bg-pink_petcare p-1 text-white font-mono">Regras SQL</mark>
+                </code>
                 <p>Em desenvolvimento...</p>
+                <!-- <ul class="list-disc mx-6">
+                    <li><strong class="text-dark_blue">avatarurl</strong><strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
+                    <li><strong class="text-dark_blue">name</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark></li>
+                    <li><strong class="text-dark_blue">email</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">unique</mark> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark></li>
+                    <li><strong class="text-dark_blue">password</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark></li>
+                    <li><strong class="text-dark_blue">role</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
+                    <li><strong class="text-dark_blue">salescount</strong> <strong class="font-normal text-green_petcare">&lt;Int&gt;</strong></li>
+                </ul> -->
             </div>
         </section>
     </main>
@@ -93,5 +485,48 @@
         <h3>Todos os direitos reservados - PetCare</h3>
         <p>Copyright © 2024</p>
     </footer>
+
+
+    <!-- Lucid - Development version -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Lucid - Production version -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        // load lucid icons
+        lucide.createIcons();
+
+        // handle copy to clipboard button for code snippets
+        const allClipboardButtons = document.querySelectorAll('[data-clipboard]')
+        allClipboardButtons.forEach(button => button.addEventListener('click', copyToClipboard))
+        allClipboardButtons[0].classList.remove()
+
+        // allClipboardButtons[0]
+
+        function copyToClipboard() {
+            const button = this
+            const codeElement = button.parentNode.parentNode
+            let textToCopy = codeElement.querySelector('[data-clipboard-text]').innerText
+            const clipboardIcon = button.children[0]
+            const checkIcon = button.children[1]
+            const clipboardText = button.children[2]
+            navigator.clipboard.writeText(textToCopy);
+
+
+            clipboardIcon.classList.add('hidden')
+            checkIcon.classList.remove('hidden')
+            checkIcon.classList.add('block')
+            clipboardText.innerText = 'Copiado'
+
+            setTimeout(() => {
+                clipboardIcon.classList.remove('hidden')
+                checkIcon.classList.remove('block')
+                checkIcon.classList.add('hidden')
+                clipboardText.innerText = 'Copiar'
+            }, 4000)
+            
+        }
+    </script>
 </body>
 </html>
