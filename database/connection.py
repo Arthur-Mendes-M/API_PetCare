@@ -15,6 +15,7 @@ supabase: Client = create_client(url, key)
 employee_table = supabase.table('employee')
 product_table = supabase.table('product')
 client_table = supabase.table('client')
+sale_table = supabase.table('sale')
 
 # set bucket variables
 petcare_bucket = 'PetCare_Files'
