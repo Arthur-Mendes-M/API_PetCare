@@ -7,7 +7,7 @@ create table
     description text,
     quantityInStock int not null,
     salePrice decimal(10, 2) not null,
-    purchasePrice decimal(10, 2),
+    purchasePrice decimal(10, 2) not null,
     lastRefill timestamp with time zone
 );
 
