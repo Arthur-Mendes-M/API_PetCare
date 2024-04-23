@@ -3,7 +3,7 @@ from flask import jsonify
 from supabase import create_client, Client
 from dotenv import load_dotenv
 
-# load enviroment variables 
+# load environment variables 
 load_dotenv()
 
 # create supabase cliente for manage database
@@ -13,16 +13,19 @@ supabase: Client = create_client(url, key)
 
 # create all used tables
 employee_table = supabase.table('employee')
-product_table = supabase.table('employee')
+product_table = supabase.table('product')
+client_table = supabase.table('client')
 
 # set bucket variables
 petcare_bucket = 'PetCare_Files'
 employees_bucket_folder_path = 'Employees'
 products_bucket_folder_path = 'Products'
+clients_bucket_folder_path = 'Clients'
 
 # create buckets - commented because already exists
 # supabase.storage.create_bucket(employees_bucket_folder_path, options={"public": True})
 # supabase.storage.create_bucket(products_bucket_folder_path, options={"public": True})
+# supabase.storage.create_bucket(clients_bucket_folder_path, options={"public": True})
 
 # set bucket
 petcare_bucket = supabase.storage.from_(petcare_bucket)
@@ -32,7 +35,7 @@ def supabase_operation(operation):
     try:
         return operation.execute().data
     except Exception as e:        
-        return jsonify({ "error": str(e.details)})
+        return {"error": str(e)}
     
 def update_file_bucket(bucket, bucket_folder_path, current_file_name, new_file_name, file):
     try:
@@ -58,3 +61,6 @@ def update_file_bucket(bucket, bucket_folder_path, current_file_name, new_file_n
 
     except Exception as e:
         return jsonify({"error": str(e)})
+
+def upload_file_bucket():
+    return 'Criando'

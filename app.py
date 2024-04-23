@@ -5,12 +5,16 @@ import json
 
 # import all blueprints (routes set by entity)
 from routes.employee import employee_blueprint
+from routes.product import product_blueprint
+from routes.client import client_blueprint
 
 # Create flask instance and save blueprints
 app = Flask(__name__, static_folder="./images")
 
 # register all blueprint
 app.register_blueprint(employee_blueprint)
+app.register_blueprint(product_blueprint)
+app.register_blueprint(client_blueprint)
 
 # Set variables to import on html
 html_variables = {

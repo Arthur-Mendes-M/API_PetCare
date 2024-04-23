@@ -6,7 +6,7 @@ from lib.flask_bcrypt import encode_password, verify_encoded_password
 employee_blueprint = Blueprint("employees", __name__, url_prefix="/employees")
 
 # Define get root route
-@employee_blueprint.get("/")
+@employee_blueprint.get('/')
 def get_all_employees():
     # If not exists request body
     if request.content_length == 0 or request.content_length == None:
@@ -40,7 +40,7 @@ def get_all_employees():
         "error": "email or password is wrong"
     })
     
-@employee_blueprint.get("/<id>")
+@employee_blueprint.get('/<id>')
 def get_employee_by_id(id):
     return jsonify(
             supabase_operation(
@@ -50,7 +50,7 @@ def get_employee_by_id(id):
         )
     )
 
-@employee_blueprint.post("/")
+@employee_blueprint.post('/')
 def save_employee():
     employee = request.form
 
@@ -83,7 +83,7 @@ def save_employee():
         )
     )
 
-@employee_blueprint.put("/<id>")
+@employee_blueprint.put('/<id>')
 def update_employee(id):
     employee = request.form
     
@@ -115,7 +115,7 @@ def update_employee(id):
         if 'data' in updated:
             employee['avatarUrl'] = updated["data"]
 
-    if employee.get('email') and not 'image' in request.files:
+    if employee.get('email') and found_employee.data[0]['avatarurl'] and not 'image' in request.files:
         # change photo file on bucket
         current_file_name = found_employee.data[0]['email']
         new_file_name = employee.get('email')
@@ -137,7 +137,7 @@ def update_employee(id):
         )
     )
 
-@employee_blueprint.delete("/<id>")
+@employee_blueprint.delete('/<id>')
 def delete_employee(id):
     found_employee = employee_table.select("*").eq("id", id).execute().data
 

@@ -1,33 +1,13 @@
 create table
-  Animal (
-    id bigint primary key generated always as identity,
-    name varchar(255) not null,
-    breed varchar(255),
-    age int,
-    weight decimal(10, 2),
-    owner varchar(255),
-);
-
-create table
-  Appointment (
-    id bigint primary key generated always as identity,
-    dateTime timestamp with time zone not null,
-    servicesID int[] not null,
-    animalID int,
-    status varchar(20),
-    foreign key (animalID) references Animal (id)
-);
-
-create table
   Product (
     id bigint primary key generated always as identity,
+    code varchar(255) unique not null,
     imageURL varchar(255) unique,
     name varchar(255) not null,
     description text,
-    price decimal(10, 2) not null,
-    quantityInStock int,
-    purchasePrice float,
-    salePrice decimal(10, 2),
+    quantityInStock int not null,
+    salePrice decimal(10, 2) not null,
+    purchasePrice decimal(10, 2),
     lastRefill timestamp with time zone
 );
 
@@ -42,19 +22,22 @@ create table
     salesCount int
 );
 
-create table
-  Service (
+create table 
+  Client (
     id bigint primary key generated always as identity,
+    avatarURL varchar(255) unique,
     name varchar(255) not null,
-    description text,
-    price decimal(10, 2) not null
+    email varchar(255) unique not null,
+    password varchar(255) not null
 );
 
 create table
   Sale (
     id bigint primary key generated always as identity,
+    clientID bigint,
     dateTime timestamp with time zone not null,
     total decimal(10, 2) not null,
     paymentMethod text,
-    products json[] not null
+    products json[] not null,
+    foreign key (clientID) references Client (id)
 );
