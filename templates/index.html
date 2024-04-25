@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -177,6 +177,7 @@
             </div>
         </section>
 
+        <!-- EMPLOYEE -->
         <hr class="h-[3px] bg-green_petcare" id="employees">
             <h1 class="text-3xl text-center"><strong class="text-green_petcare font-normal">Endpoints</strong> - <strong class="font-normal text-pink_petcare">Funcionários</strong></h1>
         <hr class="h-[3px] bg-green_petcare">
@@ -300,7 +301,7 @@
                                     </button>
                                 </div>
                             </code>
-                            <small class="italic w-full">Obs: o retorno é um ARRAY, logo, para acessar o objeto do funcionário, é necessário acessar o primeiro elemento.</small>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY.</small>
                         </div>
                     </div>
 
@@ -761,7 +762,7 @@
                                         &emsp;&ensp;"name": "nome_do_produto",
                                         &emsp;&ensp;"description": "descricao_do_produto",
                                         &emsp;&ensp;"quantityInStock": "quantidade_em_estoque_int",
-                                        &emsp;&ensp;"salePrice": "preco_de_veda_decimal",
+                                        &emsp;&ensp;"salePrice": "preco_de_venda_decimal",
                                         &emsp;&ensp;"purchasePrice": "preco_de_compra_decimal",
                                         &emsp;&ensp;"lastRefill": "data_do_ultimo_abastecimento"
                                     }]
@@ -776,7 +777,7 @@
                                     </button>
                                 </div>
                             </code>
-                            <small class="italic w-full">Obs: o retorno é um ARRAY, logo, para acessar o objeto do funcionário, é necessário acessar o primeiro elemento.</small>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY.</small>
                         </div>
                     </div>
 
@@ -812,7 +813,7 @@
                                         &emsp;&ensp;"name": "nome_do_produto",
                                         &emsp;&ensp;"description": "descricao_do_produto",
                                         &emsp;&ensp;"quantityInStock": "quantidade_em_estoque_int",
-                                        &emsp;&ensp;"salePrice": "preco_de_veda_decimal",
+                                        &emsp;&ensp;"salePrice": "preco_de_venda_decimal",
                                         &emsp;&ensp;"purchasePrice": "preco_de_compra_decimal",
                                         &emsp;&ensp;"lastRefill": "data_do_ultimo_abastecimento"
                                     }]
@@ -901,7 +902,7 @@
                                         &emsp;&ensp;"name": "nome_do_produto",
                                         &emsp;&ensp;"description": "descricao_do_produto",
                                         &emsp;&ensp;"quantityInStock": "quantidade_em_estoque_int",
-                                        &emsp;&ensp;"salePrice": "preco_de_veda_decimal",
+                                        &emsp;&ensp;"salePrice": "preco_de_venda_decimal",
                                         &emsp;&ensp;"purchasePrice": "preco_de_compra_decimal",
                                         &emsp;&ensp;"lastRefill": "data_do_ultimo_abastecimento"
                                     }]
@@ -961,7 +962,7 @@
                                         &emsp;&ensp;"name": "nome_do_produto",
                                         &emsp;&ensp;"description": "descricao_do_produto",
                                         &emsp;&ensp;"quantityInStock": "quantidade_em_estoque_int",
-                                        &emsp;&ensp;"salePrice": "preco_de_veda_decimal",
+                                        &emsp;&ensp;"salePrice": "preco_de_venda_decimal",
                                         &emsp;&ensp;"purchasePrice": "preco_de_compra_decimal",
                                     }
                                 </p>
@@ -990,7 +991,7 @@
                                         &emsp;&ensp;"name": "nome_do_produto",
                                         &emsp;&ensp;"description": "descricao_do_produto",
                                         &emsp;&ensp;"quantityInStock": "quantidade_em_estoque_int",
-                                        &emsp;&ensp;"salePrice": "preco_de_veda_decimal",
+                                        &emsp;&ensp;"salePrice": "preco_de_venda_decimal",
                                         &emsp;&ensp;"purchasePrice": "preco_de_compra_decimal",
                                         &emsp;&ensp;"lastRefill": "data_do_ultimo_abastecimento"
                                     }]
@@ -1010,7 +1011,6 @@
                     </div>
                 </div>
             </div>
-
 
             <hr class="h-[2px] w-1/2 translate-x-1/2 my-6 bg-pink_petcare">
 
@@ -1060,7 +1060,7 @@
                                         &emsp;&ensp;"name": "nome_do_produto",
                                         &emsp;&ensp;"description": "descricao_do_produto",
                                         &emsp;&ensp;"quantityInStock": "quantidade_em_estoque_int",
-                                        &emsp;&ensp;"salePrice": "preco_de_veda_decimal",
+                                        &emsp;&ensp;"salePrice": "preco_de_venda_decimal",
                                         &emsp;&ensp;"purchasePrice": "preco_de_compra_decimal",
                                         &emsp;&ensp;"lastRefill": "data_do_ultimo_abastecimento"
                                     }]
@@ -1082,8 +1082,6 @@
             </div>
 
         </section>
-
-
 
 
 
@@ -1111,6 +1109,438 @@
                     <li><strong class="text-dark_blue">password</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark></li>
                 </ul>
             </div>
+
+            <hr class="h-[2px] w-1/2 translate-x-1/2 my-6 bg-green_petcare">
+
+            <!-- GET -->
+            <div id="GET_clients">
+                <!-- Introduction -->
+                <div class="mb-9 flex flex-col items-center">
+                    <h3 class="text-2xl w-fit"><mark class="bg-green_petcare py-1 px-3 text-white font-mono">GET</mark></h3>
+
+                    <p class="max-w-2xl text-center">No endpoint dos clientes, com a rota GET, existem <strong>três opções</strong> que utilizam da mesma url. O que diferencia as requisições são: o corpo da requisição (body) e o parâmetro de rota (id).</p>
+                    <p class="text-pink_petcare w-full text-lg mt-3">Endpoints</p>
+
+                    <div class="mb-3 w-full">
+                        <code class="block rounded-md border border-pink_petcare shadow-xl break-words md:flex md:justify-between">
+                            <p class="px-2 py-2 w-fit self-center break-all" data-clipboard-text>
+                                https://api-petcare.onrender.com/<u class="no-underline text-pink_petcare font-bold">clients</u>?auth=&lt;TOKEN&gt;</u>
+                            </p>
+
+                            <div class="relative pl-2 md:pl-0 flex justify-center items-center">
+                                <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-pink_petcare text-pink_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                    <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                    <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                    <p class="text-xs font-sans">Copiar</p>
+                                </button>
+                            </div>
+                        </code>
+                        <small class="italic w-full">Essa é a URL padrão para o endpoint 'clients'</small>
+                    </div>
+                    
+                    <div class="w-full">
+                        <code class="block rounded-md border border-pink_petcare shadow-xl break-words md:flex md:justify-between">
+                            <p class="px-2 py-2 w-fit self-center break-all" data-clipboard-text>
+                                https://api-petcare.onrender.com/<u class="no-underline text-pink_petcare font-bold">clients/&lt;id&gt;</u>?auth=&lt;TOKEN&gt;</u>
+                            </p>
+
+                            <div class="relative pl-2 md:pl-0 flex justify-center items-center">
+                                <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-pink_petcare text-pink_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                    <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                    <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                    <p class="text-xs font-sans">Copiar</p>
+                                </button>
+                            </div>
+                        </code>
+                        <small class="italic w-full">Essa é a URL para obter um cliente específico pelo seu ID</small>
+                    </div>
+
+                </div>
+                
+                <!-- Different Routes -->
+                <div class="flex flex-col gap-3">
+                    <!-- Route one - get all-->
+                    <div class="mb-8">
+                        <h4 class="text-lg mb-1"><strong class="text-light_blue font-normal">|</strong> Buscar <strong class="text-light_blue font-normal">todos</strong> os clientes</h4>
+
+                        <!-- Request body -->
+                        <div class="mb-3">
+                            <h5>Corpo da requisição | <strong class="text-green_petcare font-normal">Nenhum</strong></h5>
+
+                            <div class="flex items-center gap-5 flex-wrap">
+                                <code class="block w-fit rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                    <p class="px-2 py-2 w-fit self-center break-all">
+                                        Nenhum / Não precisa
+                                    </p>
+                                </code>
+
+                                <h4 class="italic"><i data-lucide="arrow-big-right-dash" class="inline text-light_blue"></i> Basta somente chamar a  <strong class="text-light_blue font-normal">url padrão</strong> para esse endpoint</h4>
+                            </div>
+                        </div>
+
+                        <!-- Response -->
+                        <div>
+                            <h5>Resposta da API | <strong class="text-green_petcare font-normal">JSON / Array</strong></h5>
+
+                            <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
+                                        &emsp;&ensp;"id": "id_int",
+                                        &emsp;&ensp;"avatarurl": "link_para_foto",
+                                        &emsp;&ensp;"name": "nome_do_cliente",
+                                        &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
+                                        &emsp;&ensp;"password": "senha_do_cliente"
+                                    }]
+                                </p>
+
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-light_blue text-light_blue p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY.</small>
+                        </div>
+                    </div>
+
+                    <!-- Route two - validade access-->
+                    <div class="mb-8">
+                        <h4 class="text-lg mb-1"><strong class="text-pink_petcare font-normal">| Validar o acesso</strong> de um cliente específico</u></h4>
+
+                        <!-- Request body -->
+                        <div class="mb-3">
+                            <h5>Corpo da requisição | <strong class="text-green_petcare font-normal">JSON</strong></h5>
+
+                            <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>{
+                                    &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
+                                    &emsp;&ensp;"password": "senha_do_cliente"
+                                }</p>
+
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-green_petcare text-green_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic">Obrigatório: formato JSON e os campos: email e password</small>
+                        </div>
+                        
+                        <!-- Response -->
+                        <div>
+                            <h5>Resposta da API | <strong class="text-green_petcare font-normal">JSON / Array ~ ou ~ {
+                                "error": "email or password is wrong"
+                            }</strong></h5>
+
+                            <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
+                                        &emsp;&ensp;"id": "id_int",
+                                        &emsp;&ensp;"avatarurl": "link_para_foto",
+                                        &emsp;&ensp;"name": "nome_do_cliente",
+                                        &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
+                                        &emsp;&ensp;"password": "senha_do_cliente"
+                                    }]
+                                </p>
+
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-light_blue text-light_blue p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY, logo, para acessar o objeto do cliente, é necessário acessar o primeiro elemento.</small>
+                        </div>
+                    </div>
+
+                    <!-- Route three - get one by id-->
+                    <div>
+                        <h4 class="text-lg mb-1"><strong class="text-light_blue font-normal">| Buscar</strong> um cliente <strong class="text-light_blue font-normal">pelo ID</strong></h4>
+
+                        <!-- Request body -->
+                        <div class="mb-3">
+                            <h5>
+                                Corpo da requisição | <strong class="text-green_petcare font-normal">Nenhum</strong>
+                            </h5>
+
+                            <div class="flex items-center gap-5 flex-wrap">
+                                <code class="block w-fit rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                    <p class="px-2 py-2 w-fit self-center break-all">
+                                        Nenhum / Não precisa
+                                    </p>
+                                </code>
+
+                                <h4 class="italic"><i data-lucide="arrow-big-right-dash" class="inline text-light_blue"></i> Basta somente chamar a  <strong class="text-light_blue font-normal">url padrão COM o id que deseja buscar</strong>.</h4>
+                            </div>
+                        </div>
+
+                        <!-- Response -->
+                        <div>
+                            <h5>Resposta da API | <strong class="text-green_petcare font-normal">JSON / Array ~ ou ~ {
+                                "error": "email or password is wrong"
+                            }</strong></h5>
+
+                            <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
+                                        &emsp;&ensp;"id": "id_int",
+                                        &emsp;&ensp;"avatarurl": "link_para_foto",
+                                        &emsp;&ensp;"name": "nome_do_cliente",
+                                        &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
+                                        &emsp;&ensp;"password": "senha_do_cliente"
+                                    }]
+                                </p>
+
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-light_blue text-light_blue p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY, logo, para acessar o objeto do cliente, é necessário acessar o primeiro elemento.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="h-[2px] w-1/2 translate-x-1/2 my-6 bg-light_blue">
+            <!-- POST -->
+            <div id="POST_clients">
+                <div class="mb-9 flex flex-col items-center">
+                    <h3 class="text-2xl w-fit"><mark class="bg-light_blue py-1 px-3 text-white font-mono">POST</mark></h3>
+
+                    <p class="max-w-2xl text-center">Na rota POST é necessário que o corpo da requisição (body) seja passado em formato <strong>multipart/form-data.</strong></p>
+                    <p class="text-pink_petcare w-full text-lg mt-3">Endpoint</p>
+                    <code class="w-full block rounded-md border border-pink_petcare shadow-xl break-words md:flex md:justify-between">
+                        <p class="px-2 py-2 w-fit self-center break-all" data-clipboard-text>
+                            https://api-petcare.onrender.com/<u class="no-underline text-pink_petcare font-bold">clients</u>?auth=&lt;TOKEN&gt;</u>
+                        </p>
+
+                        <div class="relative pl-2 md:pl-0 flex justify-center items-center">
+                            <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-pink_petcare text-pink_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                <p class="text-xs font-sans">Copiar</p>
+                            </button>
+                        </div>
+                    </code>
+                    <small class="italic w-full">Na rota POST a URL se mantém a padrão do endpoint 'clients'</small>
+                </div>
+                
+                <div class="flex flex-col gap-3">
+                    <div class="mb-3">
+                        <h4 class="text-lg mb-1 "><strong class="text-dark_blue font-normal">| Cadastrando</strong> um cliente com <u class="decoration-wavy decoration-green_petcare">todos os campos</u></h4>
+                        <div class="mb-3">
+                            <h5>Corpo da requisição | <strong class="text-green_petcare font-normal">multipart/form-data</strong></h5>
+                            <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>{
+                                        &emsp;&ensp;"image": &lt;arquivo_de_imagem&gt;,
+                                        &emsp;&ensp;"name": "nome_do_cliente",
+                                        &emsp;&ensp;"email": "email_a_ser_cadastrado@dominio.com",
+                                        &emsp;&ensp;"password": "senha_do_cliente"
+                                    }
+                                </p>
+
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-light_blue text-light_blue p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full flex items-center gap-1 break-all">
+                                <i data-lucide="circle-alert" class="w-[1.3rem] text-pink_petcare"></i>
+                                Os elementos OBRIGATÓRIOS são somente: <strong class="font-normal text-pink_petcare">"name"</strong>, <strong class="font-normal text-pink_petcare">"email"</strong> e <strong class="font-normal text-pink_petcare">"password"</strong>.
+                            </small>
+                        </div>
+                        <div>
+                            <h5>Resposta da API | <strong class="text-green_petcare font-normal">JSON / Array</strong></h5>
+
+                            <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
+                                        &emsp;&ensp;"id": "id_int",
+                                        &emsp;&ensp;"avatarurl": "link_para_foto" | Null,
+                                        &emsp;&ensp;"name": "nome_do_cliente",
+                                        &emsp;&ensp;"email": "email_cadastrado@dominio.com",
+                                        &emsp;&ensp;"password": "senha_do_cliente"
+                                    }]
+                                </p>
+
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-green_petcare text-green_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY, logo, para acessar o objeto do cliente, é necessário acessar o primeiro elemento.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="h-[2px] w-1/2 translate-x-1/2 my-6 bg-green_petcare">
+            <!-- PUT -->
+            <div id="PUT_clients">
+                <div class="mb-9 flex flex-col items-center">
+                    <h3 class="text-2xl w-fit"><mark class="bg-green_petcare py-1 px-3 text-white font-mono">PUT</mark></h3>
+
+                    <p class="max-w-2xl text-center">Na rota PUT é necessário que o corpo da requisição (body) seja passado em formato <strong>multipart/form-data</strong> com os dados a serem alterados (podendo ser somente o que for alterado), e na url da rota, o <u class="decoration-wavy decoration-green_petcare text-green_petcare">id do cliente</u> a ser atualizado.</p>
+
+                    <p class="text-pink_petcare w-full text-lg mt-3">Endpoint</p>
+                    <code class="w-full block rounded-md border border-pink_petcare shadow-xl break-words md:flex md:justify-between">
+                        <p class="px-2 py-2 w-fit self-center break-all" data-clipboard-text>
+                            https://api-petcare.onrender.com/<u class="no-underline text-pink_petcare font-bold">clients/&lt;id&gt;</u>?auth=&lt;TOKEN&gt;</u>
+                        </p>
+
+                        <div class="relative pl-2 md:pl-0 flex justify-center items-center">
+                            <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-pink_petcare text-pink_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                <p class="text-xs font-sans">Copiar</p>
+                            </button>
+                        </div>
+                    </code>
+                    <small class="italic w-full">Na rota PUT a URL precisa receber o id do cliente ser atualizado.</small>
+                </div>
+                
+                <div class="flex flex-col gap-3">
+                    <div class="mb-3">
+                        <h4 class="text-lg mb-1 "><strong class="text-dark_blue font-normal">| Atualizando</strong> um cliente
+
+                        <div class="mb-3">
+                            <h5>Corpo da requisição | <strong class="text-green_petcare font-normal">multipart/form-data</strong></h5>
+                            <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>{
+                                        &emsp;&ensp;"image": &lt;arquivo_de_imagem&gt;,
+                                        &emsp;&ensp;"name": "novo_nome",
+                                        &emsp;&ensp;"email": "novo_email@dominio.com"
+                                    }
+                                </p>
+
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-light_blue text-light_blue p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">
+                                Nessa rota é necessário somente um <strong class="font-normal text-pink_petcare">id existente</strong> de cliente e algum campo com um valor novo.
+                            </small>
+                        </div>
+                        <div>
+                            <h5>Resposta da API | <strong class="text-green_petcare font-normal">JSON / Array</strong></h5>
+
+                            <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
+                                        &emsp;&ensp;"id": "id_int",
+                                        &emsp;&ensp;"avatarurl": "link_para_foto" | Null,
+                                        &emsp;&ensp;"name": "nome_do_cliente",
+                                        &emsp;&ensp;"email": "email_atualizado@dominio.com",
+                                        &emsp;&ensp;"password": "senha_do_cliente,
+                                    }]
+                                </p>
+
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-green_petcare text-green_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY, logo, para acessar o objeto do cliente, é necessário acessar o primeiro elemento.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="h-[2px] w-1/2 translate-x-1/2 my-6 bg-pink_petcare">
+
+            <!-- DELETE -->
+            <div id="DELETE_clients">
+                <div class="mb-9 flex flex-col items-center">
+                    <h3 class="text-2xl w-fit"><mark class="bg-pink_petcare py-1 px-3 text-white font-mono">DELETE</mark></h3>
+
+                    <p class="max-w-2xl text-center">Na rota DELETE é necessário somente o <u class="decoration-wavy decoration-pink_petcare text-pink_petcare">id válido</u> de um cliente existente. Sem a necessidade do corpo de requisição.</p>
+                    <p class="text-pink_petcare w-full text-lg mt-3">Endpoint</p>
+                    <code class="w-full block rounded-md border border-pink_petcare shadow-xl break-words md:flex md:justify-between">
+                        <p class="px-2 py-2 w-fit self-center break-all" data-clipboard-text>
+                            https://api-petcare.onrender.com/<u class="no-underline text-pink_petcare font-bold">clients/&lt;id&gt;</u>?auth=&lt;TOKEN&gt;</u>
+                        </p>
+
+                        <div class="relative pl-2 md:pl-0 flex justify-center items-center">
+                            <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-pink_petcare text-pink_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                <p class="text-xs font-sans">Copiar</p>
+                            </button>
+                        </div>
+                    </code>
+                    <small class="italic w-full">Na rota DELETE a URL precisa receber o id do cliente a ser deletado.</small>
+                </div>
+                
+                <div class="flex flex-col gap-3">
+                    <div class="mb-3">
+                        <h4 class="text-lg mb-1 "><strong class="text-pink_petcare font-normal">| Deletando</strong> um cliente</h4>
+                        <div class="mb-3">
+                            <h5>Corpo da requisição | <strong class="text-green_petcare font-normal">Nenhum</strong></h5>
+                            <code class="block w-fit rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                <p class="px-2 py-2 w-fit self-center break-all">
+                                    Nenhum / Não precisa
+                                </p>
+                            </code>
+                        </div>
+                        <div>
+                            <h5>Resposta da API | <strong class="text-green_petcare font-normal">JSON / Array</strong></h5>
+
+                            <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
+                                        &emsp;&ensp;"id": "id_int,
+                                        &emsp;&ensp;"avatarurl": "link_para_foto" | Null,
+                                        &emsp;&ensp;"name": "nome_do_cliente",
+                                        &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
+                                        &emsp;&ensp;"password": "senha_do_cliente"
+                                    }]
+                                </p>
+
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-green_petcare text-green_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY, logo, para acessar o objeto do cliente, é necessário acessar o primeiro elemento.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
 
@@ -1141,10 +1571,330 @@
                     <li><strong class="text-dark_blue">products</strong> <strong class="font-normal text-green_petcare">&lt;json[]&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Ex: [{"name": "x", "salePrice": 10...}]</u></li>
                 </ul>
             </div>
+
+            <hr class="h-[2px] w-1/2 translate-x-1/2 my-6 bg-green_petcare">
+
+            <!-- GET -->
+            <div id="GET_sales">
+                <!-- Introduction -->
+                <div class="mb-9 flex flex-col items-center">
+                    <h3 class="text-2xl w-fit"><mark class="bg-green_petcare py-1 px-3 text-white font-mono">GET</mark></h3>
+
+                    <p class="max-w-2xl text-center">No endpoint das vendas, com a rota GET, existem duas opções, onde ambas utilizam da mesma url. O que diferencia as duas é o <u class="no-underline text-pink_petcare font-bold">parâmetro de rota (id)</u>.</p>
+                    <p class="text-pink_petcare w-full text-lg mt-3">Endpoints</p>
+                    
+                    <div class="mb-3 w-full">
+                        <code class="block rounded-md border border-pink_petcare shadow-xl break-words md:flex md:justify-between">
+                            <p class="px-2 py-2 w-fit self-center break-all" data-clipboard-text>
+                                https://api-petcare.onrender.com/<u class="no-underline text-pink_petcare font-bold">sales</u>?auth=&lt;TOKEN&gt;</u>
+                            </p>
+
+                            <div class="relative pl-2 md:pl-0 flex justify-center items-center">
+                                <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-pink_petcare text-pink_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                    <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                    <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                    <p class="text-xs font-sans">Copiar</p>
+                                </button>
+                            </div>
+                        </code>
+                        <small class="italic w-full">Essa é a URL padrão para o endpoint 'sales'</small>
+                    </div>
+                    
+                    <div class="w-full">
+                        <code class="block rounded-md border border-pink_petcare shadow-xl break-words md:flex md:justify-between">
+                            <p class="px-2 py-2 w-fit self-center break-all" data-clipboard-text>
+                                https://api-petcare.onrender.com/<u class="no-underline text-pink_petcare font-bold">sales/&lt;id&gt;</u>?auth=&lt;TOKEN&gt;</u>
+                            </p>
+
+                            <div class="relative pl-2 md:pl-0 flex justify-center items-center">
+                                <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-pink_petcare text-pink_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                    <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                    <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                    <p class="text-xs font-sans">Copiar</p>
+                                </button>
+                            </div>
+                        </code>
+                        <small class="italic w-full">Essa é a URL para obter uma venda específica pelo seu ID</small>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col gap-3">
+                    <div class="mb-8">
+                        <h4 class="text-lg mb-1 "><strong class="text-light_blue font-normal">|</strong> Buscar <strong class="text-light_blue font-normal">todas</strong> as vendas</h4>
+                        <div class="mb-3">
+                            <h5>Corpo da requisição | <strong class="text-green_petcare font-normal">Nenhum</strong></h5>
+                            <div class="flex items-center gap-5 flex-wrap">
+                                <code class="block w-fit rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                    <p class="px-2 py-2 w-fit self-center break-all">
+                                        Nenhum / Não precisa
+                                    </p>
+                                </code>
+
+                                <h4 class="italic"><i data-lucide="arrow-big-right-dash" class="inline text-light_blue"></i> Basta somente chamar a  <strong class="text-light_blue font-normal">url padrão</strong> para esse endpoint</h4>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h5>Resposta da API | <strong class="text-green_petcare font-normal">JSON / Array</strong></h5>
+
+                            <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
+                                        &emsp;&ensp;"id": "id_int",
+                                        &emsp;&ensp;"clientID": "id_do_cliente_int",
+                                        &emsp;&ensp;"datetime": "data_da_venda",
+                                        &emsp;&ensp;"total": "total_em_reais_decimal",
+                                        &emsp;&ensp;"paymentMethod": "metodo_de_pagamento",
+                                        &emsp;&ensp;"products": [lista_de_objetos_de_produtos]
+                                    }]
+                                </p>
+
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-light_blue text-light_blue p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY.</small>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg mb-1"><strong class="text-light_blue font-normal">| Buscar</strong> uma venda <strong class="text-light_blue font-normal">pelo ID</strong></h4>
+
+                        <!-- Request body -->
+                        <div class="mb-3">
+                            <h5>
+                                Corpo da requisição | <strong class="text-green_petcare font-normal">Nenhum</strong>
+                            </h5>
+
+                            <div class="flex items-center gap-5 flex-wrap">
+                                <code class="block w-fit rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                    <p class="px-2 py-2 w-fit self-center break-all">
+                                        Nenhum / Não precisa
+                                    </p>
+                                </code>
+
+                                <h4 class="italic"><i data-lucide="arrow-big-right-dash" class="inline text-light_blue"></i> Basta somente chamar a  <strong class="text-light_blue font-normal">url padrão COM o id que deseja buscar</strong>.</h4>
+                            </div>
+                        </div>
+
+                        <!-- Response -->
+                        <div>
+                            <h5>Resposta da API | <strong class="text-green_petcare font-normal">JSON / Array</strong></h5>
+
+                            <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
+                                        &emsp;&ensp;"id": "id_int",
+                                        &emsp;&ensp;"clientID": "id_do_cliente_int",
+                                        &emsp;&ensp;"datetime": "data_da_venda",
+                                        &emsp;&ensp;"total": "total_em_reais_decimal",
+                                        &emsp;&ensp;"paymentMethod": "metodo_de_pagamento",
+                                        &emsp;&ensp;"products": [lista_de_objetos_de_produtos]
+                                    }]
+                                </p>
+
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-light_blue text-light_blue p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY, logo, para acessar o objeto da venda, é necessário acessar o primeiro elemento.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="h-[2px] w-1/2 translate-x-1/2 my-6 bg-light_blue">
+            <!-- POST -->
+            <div id="POST_sales">
+                <div class="mb-9 flex flex-col items-center">
+                    <h3 class="text-2xl w-fit"><mark class="bg-light_blue py-1 px-3 text-white font-mono">POST</mark></h3>
+
+                    <p class="max-w-2xl text-center">Na rota POST é necessário que o corpo da requisição (body) seja passado em formato <strong>JSON.</strong></p>
+
+                    <p class="text-pink_petcare w-full text-lg mt-3">Endpoint</p>
+                    <code class="w-full block rounded-md border border-pink_petcare shadow-xl break-words md:flex md:justify-between">
+                        <p class="px-2 py-2 w-fit self-center break-all" data-clipboard-text>
+                            https://api-petcare.onrender.com/<u class="no-underline text-pink_petcare font-bold">sales</u>?auth=&lt;TOKEN&gt;</u>
+                        </p>
+
+                        <div class="relative pl-2 md:pl-0 flex justify-center items-center">
+                            <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-pink_petcare text-pink_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                <p class="text-xs font-sans">Copiar</p>
+                            </button>
+                        </div>
+                    </code>
+                    <small class="italic w-full">Na rota POST a URL se mantém a padrão do endpoint 'sales'</small>
+                </div>
+                
+                <div class="flex flex-col gap-3">
+                    <div class="mb-3">
+                        <h4 class="text-lg mb-1 "><strong class="text-dark_blue font-normal">| Cadastrando</strong> uma venda com <u class="decoration-wavy decoration-green_petcare">todos os campos</u></h4>
+                        <div class="mb-3">
+                            <h5>Corpo da requisição | <strong class="text-green_petcare font-normal">JSON</strong></h5>
+                            <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>{
+                                        &emsp;&ensp;"clientID": "id_do_cliente_int",
+                                        &emsp;&ensp;"paymentMethod": "metodo_de_pagamento",
+                                        &emsp;&ensp;"products": [lista_de_objetos_de_produtos]
+                                    }
+                                </p>
+
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-light_blue text-light_blue p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full flex items-center gap-1 break-all">
+                                <i data-lucide="circle-alert" class="w-[1.3rem] text-pink_petcare"></i>
+                                Os elementos OBRIGATÓRIOS são somente: <strong class="font-normal text-pink_petcare">"clientID"</strong>, <strong class="font-normal text-pink_petcare">"paymentMethod"</strong>, <strong class="font-normal text-pink_petcare">"salePrice"</strong> e <strong class="font-normal text-pink_petcare">"products"</strong>
+                            </small>
+                        </div>
+                        <div>
+                            <h5>Resposta da API | <strong class="text-green_petcare font-normal">JSON / Array</strong></h5>
+
+                            <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
+                                        &emsp;&ensp;"id": "id_int",
+                                        &emsp;&ensp;"clientID": "id_do_cliente_int",
+                                        &emsp;&ensp;"datetime": "data_da_venda",
+                                        &emsp;&ensp;"total": "total_em_reais_decimal",
+                                        &emsp;&ensp;"paymentMethod": "metodo_de_pagamento",
+                                        &emsp;&ensp;"products": [lista_de_objetos_de_produtos]
+                                    }]
+                                </p>
+
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-green_petcare text-green_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY, logo, para acessar o objeto da venda, é necessário acessar o primeiro elemento.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <hr class="h-[2px] w-1/2 translate-x-1/2 my-6 bg-green_petcare">
+            <!-- PUT -->
+            <div id="PUT_sales">
+                <div class="mb-9 flex flex-col items-center">
+                    <h3 class="text-2xl w-fit"><mark class="bg-green_petcare py-1 px-3 text-white font-mono">PUT</mark></h3>
+
+                    <p class="max-w-2xl text-center">A rota PUT <u class="decoration-wavy decoration-green_petcare text-green_petcare">NÃO EXISTE</u> para a entidade de vendas.</p>
+
+                    <p class="text-pink_petcare w-full text-lg mt-3">Endpoint</p>
+                    <code class="w-full block rounded-md border border-pink_petcare shadow-xl break-words md:flex md:justify-between">
+                        <p class="px-2 py-2 w-fit self-center break-all" data-clipboard-text>
+                            Nenhum / Não existe
+                        </p>
+                    </code>
+                </div>
+                
+                <div class="flex flex-col gap-3">
+                    <div class="mb-3">
+                        <h4 class="text-lg mb-1 "><strong class="text-dark_blue font-normal">| Atualizando</strong> uma venda
+                    </div>
+
+                    <div class="w-full">
+                        <h3 class="text-center text-light_blue">
+                            Nenhum / Não existe
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="h-[2px] w-1/2 translate-x-1/2 my-6 bg-pink_petcare">
+
+            <!-- DELETE -->
+            <div id="DELETE_sales">
+                <div class="mb-9 flex flex-col items-center">
+                    <h3 class="text-2xl w-fit"><mark class="bg-pink_petcare py-1 px-3 text-white font-mono">DELETE</mark></h3>
+
+                    <p class="max-w-2xl text-center">Na rota DELETE é necessário somente o <u class="decoration-wavy decoration-pink_petcare text-pink_petcare">id válido</u> de uma venda existente. Sem a necessidade do corpo de requisição.</p>
+
+                    <p class="text-pink_petcare w-full text-lg mt-3">Endpoint</p>
+                    <code class="w-full block rounded-md border border-pink_petcare shadow-xl break-words md:flex md:justify-between">
+                        <p class="px-2 py-2 w-fit self-center break-all" data-clipboard-text>
+                            https://api-petcare.onrender.com/<u class="no-underline text-pink_petcare font-bold">sales/&lt;id&gt;</u>?auth=&lt;TOKEN&gt;</u>
+                        </p>
+
+                        <div class="relative pl-2 md:pl-0 flex justify-center items-center">
+                            <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-pink_petcare text-pink_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                <p class="text-xs font-sans">Copiar</p>
+                            </button>
+                        </div>
+                    </code>
+                    <small class="italic w-full">Na rota DELETE a URL precisa receber o id da venda a ser deletada.</small>
+                </div>
+                
+                <div class="flex flex-col gap-3">
+                    <div class="mb-3">
+                        <h4 class="text-lg mb-1 "><strong class="text-pink_petcare font-normal">| Deletando</strong> uma venda</h4>
+                        <div class="mb-3">
+                            <h5>Corpo da requisição | <strong class="text-green_petcare font-normal">Nenhum</strong></h5>
+                            <code class="block w-fit rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                <p class="px-2 py-2 w-fit self-center break-all">
+                                    Nenhum / Não precisa
+                                </p>
+                            </code>
+                        </div>
+                        <div>
+                            <h5>Resposta da API | <strong class="text-green_petcare font-normal">JSON / Array</strong></h5>
+
+                            <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
+                                <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
+                                        &emsp;&ensp;"id": "id_int",
+                                        &emsp;&ensp;"clientID": "id_do_cliente_int",
+                                        &emsp;&ensp;"datetime": "data_da_venda",
+                                        &emsp;&ensp;"total": "total_em_reais_decimal",
+                                        &emsp;&ensp;"paymentMethod": "metodo_de_pagamento",
+                                        &emsp;&ensp;"products": [lista_de_objetos_de_produtos]
+                                    }]
+                                </p>
+
+                                <div class="relative pl-2 md:pl-0 flex justify-center items-center md:min-h-full">
+                                    <button data-clipboard class="before:absolute md:before:h-full before:h-px before:w-full md:before:w-px before:top-0 before:left-0 before:bg-green_petcare text-green_petcare p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                        <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                        <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+
+                                        <p class="text-xs font-sans">Copiar</p>
+                                    </button>
+                                </div>
+                            </code>
+                            <small class="italic w-full">Obs: o retorno é um ARRAY, logo, para acessar o objeto da venda, é necessário acessar o primeiro elemento.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
-    <footer class="bg-gray_one flex p-4 gap-6 items-center justify-center">
+    <footer class="bg-gray_one flex flex-wrap py-4 px-6 gap-x-10 gap-y-5 items-center justify-center sm:justify-between">
         <h3>Todos os direitos reservados - PetCare</h3>
         <p>Copyright © 2024</p>
     </footer>
