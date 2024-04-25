@@ -1,6 +1,7 @@
 from flask import jsonify, request, Blueprint
 from database.connection import supabase_operation, employee_table, petcare_bucket, employees_bucket_folder_path, update_file_bucket
 from lib.flask_bcrypt import encode_password, verify_encoded_password
+from routes.patterns import verify_json_header, verify_multipart_header
 
 # set blueprint for employees route
 employee_blueprint = Blueprint("employees", __name__, url_prefix="/employees")
@@ -16,6 +17,10 @@ def get_all_employees():
                 .select("*")
             )
         )
+
+    isJson = verify_json_header(request)
+    if isJson:
+        return jsonify(isJson)
 
     employee_data = request.json
     email = employee_data["email"]
@@ -52,6 +57,10 @@ def get_employee_by_id(id):
 
 @employee_blueprint.post('/')
 def save_employee():
+    isMultipart = verify_multipart_header(request)
+    if isMultipart:
+        return jsonify(isMultipart)
+
     employee = request.form
 
     employee = {
@@ -85,6 +94,10 @@ def save_employee():
 
 @employee_blueprint.put('/<id>')
 def update_employee(id):
+    isMultipart = verify_multipart_header(request)
+    if isMultipart:
+        return jsonify(isMultipart)
+    
     employee = request.form
     
     # look for employee before save the changes
@@ -120,7 +133,7 @@ def update_employee(id):
         current_file_name = found_employee.data[0]['email']
         new_file_name = employee.get('email')
 
-        # download current photo (to get file varible)
+        # download current photo (to get file variable)
         file_as_byte = petcare_bucket.download(f"{employees_bucket_folder_path}/{current_file_name}")
 
         current_file_name = found_employee.data[0]["email"]

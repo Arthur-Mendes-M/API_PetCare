@@ -3,6 +3,7 @@ from database.connection import supabase_operation, product_table, petcare_bucke
 import uuid
 from datetime import datetime
 from pytz import timezone
+from routes.patterns import verify_json_header, verify_multipart_header
 
 # set blueprint for products route
 product_blueprint = Blueprint("products", __name__, url_prefix="/products")
@@ -29,6 +30,10 @@ def get_product_by_id(id):
 
 @product_blueprint.post('/')
 def save_product():
+    isMultipart = verify_multipart_header(request)
+    if isMultipart:
+        return jsonify(isMultipart)
+    
     product = request.form
     SP_timezone = timezone("America/Sao_Paulo")
     today = datetime.now().astimezone(SP_timezone)
@@ -66,6 +71,10 @@ def save_product():
 
 @product_blueprint.put('/<id>')
 def update_product(id):
+    isMultipart = verify_multipart_header(request)
+    if isMultipart:
+        return jsonify(isMultipart)
+    
     product = request.form
 
     found_product = product_table.select("*").eq("id", id).execute()

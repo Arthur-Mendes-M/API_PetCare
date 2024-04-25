@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from database.connection import supabase_operation, client_table, petcare_bucket, clients_bucket_folder_path, update_file_bucket
 from lib.flask_bcrypt import encode_password, verify_encoded_password
+from routes.patterns import verify_json_header, verify_multipart_header
 
 client_blueprint = Blueprint("clients", __name__, url_prefix="/clients")
 
@@ -13,6 +14,10 @@ def get_all_client():
                 .select("*")
             )
         )
+    
+    isJson = verify_json_header(request)
+    if isJson:
+        return jsonify(isJson)
 
     client_data = request.json
     email = client_data["email"]
@@ -48,6 +53,10 @@ def get_client_by_id(id):
 
 @client_blueprint.post('/')
 def save_client():
+    isMultipart = verify_multipart_header(request)
+    if isMultipart:
+        return jsonify(isMultipart)
+    
     client = request.form
 
     client = {
@@ -79,6 +88,10 @@ def save_client():
 
 @client_blueprint.put('/<id>')
 def update_client(id):
+    isMultipart = verify_multipart_header(request)
+    if isMultipart:
+        return jsonify(isMultipart)
+    
     client = request.form
 
     found_client = client_table.select("*").eq("id", id).execute()

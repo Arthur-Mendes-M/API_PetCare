@@ -4,6 +4,7 @@ from datetime import datetime
 from pytz import timezone
 import json
 from functools import reduce 
+from routes.patterns import verify_json_header, verify_multipart_header
 
 sale_blueprint = Blueprint("sales", __name__, url_prefix="/sales")
 
@@ -28,6 +29,10 @@ def get_product_by_id(id):
 
 @sale_blueprint.post('/')
 def save_sale():
+    isJson = verify_json_header(request)
+    if isJson:
+        return jsonify(isJson)
+    
     sale = request.form
 
     found_client_by_clientID = client_table.select("*").eq("id", request.form.get('clientID')).execute().data
