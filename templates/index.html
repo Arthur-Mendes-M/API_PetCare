@@ -60,7 +60,7 @@
     </style>
 </head>
 <body class="bg-yellow_one flex flex-col min-h-screen overflow-x-hidden">
-    <header class="w-full min-h-[70px] bg-yellow_two flex items-center justify-between px-6 py-2 shadow-xl top-0 left-0 sticky z-50 md:px-20 md:py-4 flex-wrap gap-3 select-none">
+    <header class="w-full min-h-[70px] bg-yellow_two flex items-center justify-between px-6 py-2 shadow-xl top-0 left-0 fixed z-50 md:px-20 md:py-4 flex-wrap gap-x-3 gap-y-5 select-none">
         <img src="{{ html_variables['logo'] }}" alt="PetCare - API" class="h-8">
 
         <nav class="z-50 w-full md:w-fit">
@@ -142,6 +142,21 @@
             <div class="md:max-w-[40%]">
                 <h1 class="text-3xl mb-3">Sobre a  <strong class="text-green_petcare font-normal">API</strong></h1>
                 <p>Este é o <mark class="italic bg-light_blue p-1 text-white font-mono">endpoint</mark> raiz da API do <u class="decoration-pink_petcare text-pink_petcare font-bold">PetCare.</u> Aqui você terá um guia completo de como utilizar todos os endpoints da <u class="decoration-green_petcare text-green_petcare font-bold">API PetCare connect.</u></p>
+            </div>
+
+            <div class="w-full mt-3 flex flex-col gap-2 p-5 bg-white text-dark rounded-md shadow-lg">
+
+                <h1 class="flex items-center gap-2 justify-center text-xl">
+                    <i data-lucide="circle-alert" class="w-[1.5rem] text-pink_petcare"></i>
+                    <strong class="text-pink_petcare">IMPORTANTE:</strong> 
+                </h1>
+
+                <hr class="h-[2px] w-1/2 translate-x-1/2 my-1 bg-green_petcare">
+
+                <div class="max-w-[600px] text-center self-center">
+                    O deploy pela plataforma <a href="https://render.com" target="_blank" rel="noopener noreferrer" class="underline decoration-green_petcare">Render</a>, no plano gratuito (utilizado para esta API), deixa o <strong class="font-normal text-light_blue">servidor inativo</strong> após  15 minutos sem requisições! Portanto, caso sua primeira requisição demore, <strong class="font-normal text-pink_petcare">é só aguardar</strong>, não demora muito.
+                </div>
+                
             </div>
         </section>
        
@@ -1943,53 +1958,54 @@
 
 
         document.addEventListener('DOMContentLoaded', function() {
-        // Seleciona o link interno
-        const linksInternos = document.querySelectorAll('a[href^="#"]');
-        linksInternos.forEach(linkInterno => {
-            linkInterno.addEventListener('click', function(event) {
-            if (linkInterno.getAttribute('href') === "#") return
-            event.preventDefault(); // Evita o comportamento padrão de ir para o link
-            
-            // Obtém a posição da sessão de destino
-            console.log(linkInterno.getAttribute('href'))
-            const sessiontarget = document.querySelector(linkInterno.getAttribute('href'));
-            const positionTarget = sessiontarget.offsetTop;
             const header = document.querySelector('header')
-            
-            // Rola a página para a posição da sessão de destino
-            window.scrollTo({
-                top: positionTarget - (header.clientHeight + 20),
-                behavior: 'smooth'
-            });
-            });
-        })
+            document.body.style.paddingTop = `${header.clientHeight}px`
+            // Seleciona o link interno
+            const linksInternos = document.querySelectorAll('a[href^="#"]');
+            linksInternos.forEach(linkInterno => {
+                linkInterno.addEventListener('click', function(event) {
+                if (linkInterno.getAttribute('href') === "#") return
+                event.preventDefault(); // Evita o comportamento padrão de ir para o link
+                
+                // Obtém a posição da sessão de destino
+                console.log(linkInterno.getAttribute('href'))
+                const sessiontarget = document.querySelector(linkInterno.getAttribute('href'));
+                const positionTarget = sessiontarget.offsetTop;
+                
+                // Rola a página para a posição da sessão de destino
+                window.scrollTo({
+                    top: positionTarget - (header.clientHeight + 20),
+                    behavior: 'smooth'
+                });
+                });
+            })
 
 
-        const float_menu = document.getElementById('float_menu')
-        const float_menu_li_parent = float_menu.parentElement
-        float_menu_li_parent.addEventListener('mouseover', () => {
-            float_menu.style.right = '0'
-        })
+            const float_menu = document.getElementById('float_menu')
+            const float_menu_li_parent = float_menu.parentElement
+            float_menu_li_parent.addEventListener('mouseover', () => {
+                float_menu.style.right = '0'
+            })
 
-        float_menu.addEventListener("click", () => {
-            if (window.innerWidth <= 768) {
+            float_menu.addEventListener("click", () => {
+                if (window.innerWidth <= 768) {
+                    float_menu.classList.add("before:animate-regressbar")
+
+                    setTimeout(() => {
+                        float_menu.style.right = '-300%'
+                        float_menu.classList.remove("before:animate-regressbar")
+                    }, 1900)
+                }
+            })
+
+            float_menu.addEventListener('mouseleave', () => {
                 float_menu.classList.add("before:animate-regressbar")
-
                 setTimeout(() => {
                     float_menu.style.right = '-300%'
                     float_menu.classList.remove("before:animate-regressbar")
                 }, 1900)
-            }
-        })
-
-        float_menu.addEventListener('mouseleave', () => {
-            float_menu.classList.add("before:animate-regressbar")
-            setTimeout(() => {
-                float_menu.style.right = '-300%'
-                float_menu.classList.remove("before:animate-regressbar")
-            }, 1900)
-        })
-    });
+            })
+        });
     </script>
 </body>
 </html>
