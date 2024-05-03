@@ -1,5 +1,5 @@
 from werkzeug.exceptions import HTTPException
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, make_response
 from auth import protect_routes
 import json
 
@@ -29,6 +29,15 @@ html_variables = {
 @app.before_request
 def before_request():
     return protect_routes()
+
+@app.errorhandler(Exception)
+def handle_all_exceptions(error):
+    return make_response(
+        jsonify({
+            'error': str(error)
+        }),
+        500
+    )
 
 # Default route - documentation
 @app.route("/")

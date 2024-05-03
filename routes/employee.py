@@ -1,5 +1,5 @@
 from flask import jsonify, request, Blueprint
-from database.connection import supabase_operation, employee_table, petcare_bucket, employees_bucket_folder_path, update_file_bucket
+from database.connection import supabase_operation, employee_table, petcare_bucket, employees_bucket_folder_path, upload_file_bucket, update_file_bucket
 from lib.flask_bcrypt import encode_password, verify_encoded_password
 from routes.patterns import verify_json_header, verify_multipart_header
 
@@ -72,16 +72,15 @@ def save_employee():
     }
 
     if 'image' in request.files:
-        try:
-            file = request.files['image']
-            file_name = employee['email']
+        file = request.files['image']
+        file_name = employee['email']
+        
+        result = upload_file_bucket(file, petcare_bucket, employees_bucket_folder_path, file_name)
 
-            result = petcare_bucket.upload(f"{employees_bucket_folder_path}/{file_name}", file.stream.read())
-
-            if result.status_code == 200:
-                employee['avatarUrl'] = petcare_bucket.get_public_url(f"{employees_bucket_folder_path}/{file_name}")
-        except Exception as e:
-            return jsonify({"error": str(e)})
+        if 'data' in result:
+            employee['avatarUrl'] = result['data']
+        else:
+            jsonify(result)
 
     employee = {key.lower(): value for key, value in employee.items()}
 

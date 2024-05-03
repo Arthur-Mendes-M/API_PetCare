@@ -49,16 +49,13 @@ def save_product():
     }
 
     if 'image' in request.files:
-        try:
-            file = request.files['image']
-            file_name = product['code']
+        file = request.files['image']
+        file_name = product['code']
 
-            result = petcare_bucket.upload(f"{products_bucket_folder_path}/{file_name}", file.stream.read())
+        result = petcare_bucket.upload(f"{products_bucket_folder_path}/{file_name}", file.stream.read())
 
-            if result.status_code == 200:
-                product['imageURL'] = petcare_bucket.get_public_url(f"{products_bucket_folder_path}/{file_name}")
-        except Exception as e:
-            return jsonify({"error": str(e)})
+        if result.status_code == 200:
+            product['imageURL'] = petcare_bucket.get_public_url(f"{products_bucket_folder_path}/{file_name}")
 
     product = {key.lower(): value for key, value in product.items()}
 

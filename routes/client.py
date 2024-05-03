@@ -66,16 +66,13 @@ def save_client():
     }
 
     if 'image' in request.files:
-        try:
-            file = request.files['image']
-            file_name = client['email']
+        file = request.files['image']
+        file_name = client['email']
 
-            result = petcare_bucket.upload(f"{clients_bucket_folder_path}/{file_name}", file.stream.read())
+        result = petcare_bucket.upload(f"{clients_bucket_folder_path}/{file_name}", file.stream.read())
 
-            if result.status_code == 200:
-                client["avatarURL"] = petcare_bucket.get_public_url(f"{clients_bucket_folder_path}/{file_name}")
-        except Exception as e:
-            return jsonify({"error": str(e)})
+        if result.status_code == 200:
+            client["avatarURL"] = petcare_bucket.get_public_url(f"{clients_bucket_folder_path}/{file_name}")
         
     client = {key.lower(): value for key, value in client.items()}
 

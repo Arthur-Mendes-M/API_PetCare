@@ -3,4 +3,5 @@ Gunicorn
 Supabase
 flask-bcrypt
 pytz
+Pillow
 python-dotenv
