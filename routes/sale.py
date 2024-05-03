@@ -27,16 +27,15 @@ def get_product_by_id(id):
 
 @sale_blueprint.post('/')
 def save_sale():
-    isJson = verify_json_header(request)
-    if isJson:
-        return jsonify(isJson)
+    # Throw an error if request is not a json
+    verify_json_header(request)
     
     sale = request.json
 
     found_client_by_clientID = client_table.select("*").eq("id", sale['clientID']).execute().data
 
     if not found_client_by_clientID:
-        jsonify({"error": "client id out of the range - invalid index"})
+        raise Exception('Cliente was not found with clientID property')
 
     SP_timezone = timezone("America/Sao_Paulo")
     today = datetime.now().astimezone(SP_timezone)
@@ -60,13 +59,9 @@ def save_sale():
 @sale_blueprint.delete('/<id>')
 def delete_sale(id):
     found_sale = sale_table.select("*").eq("id", id).execute().data
-
+    
     if not found_sale:
-        return jsonify(
-            {
-                "error": "Index out of the range"
-            }
-        )
+        raise Exception('Sale was not found')
 
     return jsonify(
         supabase_operation(

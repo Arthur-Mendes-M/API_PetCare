@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from database.connection import supabase_operation, client_table, petcare_bucket, clients_bucket_folder_path, update_file_bucket
+from database.connection import supabase_operation, client_table, petcare_bucket, clients_bucket_folder_path, update_file_bucket, upload_file_bucket
 from lib.flask_bcrypt import encode_password, verify_encoded_password
 from routes.patterns import verify_json_header, verify_multipart_header
 
@@ -15,9 +15,8 @@ def get_all_client():
             )
         )
     
-    isJson = verify_json_header(request)
-    if isJson:
-        return jsonify(isJson)
+    # Throw an error if request is not a json
+    verify_json_header(request)
 
     client_data = request.json
     email = client_data["email"]
@@ -27,24 +26,22 @@ def get_all_client():
         client_table.select("*").eq('email', email)
     )
 
-    if found_client:
-        client = found_client[0]
-        encoded_password = client["password"]
+    if not found_client:
+        raise Exception("email or password is wrong")
+    
+    client = found_client[0]
+    encoded_password = client["password"]
 
-        # verify if input password is equal to saved encoded password
-        if verify_encoded_password(encoded_password, password):
-            return jsonify(
-                found_client
-            )
-        
-    return jsonify({
-        "error": "email or password is wrong"
-    })
+    # verify if input password is equal to saved encoded password
+    if verify_encoded_password(encoded_password, password):
+        return jsonify(
+            found_client
+        )
 
 @client_blueprint.get('/<id>')
 def get_client_by_id(id):
     return jsonify(
-            supabase_operation(
+        supabase_operation(
             client_table
             .select("*")
             .eq("id", id)
@@ -53,9 +50,8 @@ def get_client_by_id(id):
 
 @client_blueprint.post('/')
 def save_client():
-    isMultipart = verify_multipart_header(request)
-    if isMultipart:
-        return jsonify(isMultipart)
+    # Throw an error if request is not a multipart
+    verify_multipart_header(request)
     
     client = request.form
 
@@ -66,16 +62,12 @@ def save_client():
     }
 
     if 'image' in request.files:
-        try:
-            file = request.files['image']
-            file_name = client['email']
+        file = request.files['image']
+        file_name = client['email']
 
-            result = petcare_bucket.upload(f"{clients_bucket_folder_path}/{file_name}", file.stream.read())
+        result = upload_file_bucket(file, petcare_bucket, clients_bucket_folder_path, file_name)
 
-            if result.status_code == 200:
-                client["avatarURL"] = petcare_bucket.get_public_url(f"{clients_bucket_folder_path}/{file_name}")
-        except Exception as e:
-            return jsonify({"error": str(e)})
+        client["avatarURL"] = result['data']
         
     client = {key.lower(): value for key, value in client.items()}
 
@@ -88,18 +80,15 @@ def save_client():
 
 @client_blueprint.put('/<id>')
 def update_client(id):
-    isMultipart = verify_multipart_header(request)
-    if isMultipart:
-        return jsonify(isMultipart)
+    # Throw an error if request is not a multipart
+    verify_multipart_header(request)
     
     client = request.form
 
     found_client = client_table.select("*").eq("id", id).execute()
 
     if not found_client:
-        return jsonify(
-            found_client
-        )
+        raise Exception('Cliente was not found')
     
     client = {
         "name": client.get('name') if client.get('name') else found_client.data[0]['name'],
@@ -116,8 +105,7 @@ def update_client(id):
 
         updated = update_file_bucket(petcare_bucket, clients_bucket_folder_path, current_file_name, new_file_name, file)
 
-        if 'data' in updated:
-            client['avatarURL'] = updated["data"]
+        client['avatarURL'] = updated["data"]
 
     if client.get('email') and found_client.data[0]['avatarurl'] and not 'image' in request.files:
         # change photo file on bucket
@@ -129,7 +117,9 @@ def update_client(id):
 
         current_file_name = found_client.data[0]["email"]
 
-        client['avatarUrl'] = update_file_bucket(petcare_bucket, clients_bucket_folder_path, current_file_name, new_file_name, file_as_byte)['data']
+        updated = update_file_bucket(petcare_bucket, clients_bucket_folder_path, current_file_name, new_file_name, file_as_byte)
+        
+        client['avatarUrl'] = updated['data']
 
     client = {key.lower(): value for key, value in client.items()}
 
@@ -146,11 +136,7 @@ def delete_client(id):
     found_client = client_table.select("*").eq("id", id).execute().data
 
     if not found_client:
-        return jsonify(
-           {
-               "error": "Index out of the range"
-           }
-        )
+        raise Exception('Client was not found')
 
     supabase_operation(
         client_table

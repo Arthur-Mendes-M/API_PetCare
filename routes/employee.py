@@ -1,5 +1,5 @@
 from flask import jsonify, request, Blueprint
-from database.connection import supabase_operation, employee_table, petcare_bucket, employees_bucket_folder_path, update_file_bucket
+from database.connection import supabase_operation, employee_table, petcare_bucket, employees_bucket_folder_path, upload_file_bucket, update_file_bucket
 from lib.flask_bcrypt import encode_password, verify_encoded_password
 from routes.patterns import verify_json_header, verify_multipart_header
 
@@ -18,9 +18,8 @@ def get_all_employees():
             )
         )
 
-    isJson = verify_json_header(request)
-    if isJson:
-        return jsonify(isJson)
+    # throw an error if request is not a json
+    verify_json_header(request)
 
     employee_data = request.json
     email = employee_data["email"]
@@ -41,9 +40,7 @@ def get_all_employees():
                 found_employee
             )
 
-    return jsonify({
-        "error": "email or password is wrong"
-    })
+    raise Exception("email or password is wrong")
     
 @employee_blueprint.get('/<id>')
 def get_employee_by_id(id):
@@ -57,9 +54,8 @@ def get_employee_by_id(id):
 
 @employee_blueprint.post('/')
 def save_employee():
-    isMultipart = verify_multipart_header(request)
-    if isMultipart:
-        return jsonify(isMultipart)
+    # Throw an error if request is not a multipart
+    verify_multipart_header(request)
 
     employee = request.form
 
@@ -72,16 +68,12 @@ def save_employee():
     }
 
     if 'image' in request.files:
-        try:
-            file = request.files['image']
-            file_name = employee['email']
+        file = request.files['image']
+        file_name = employee['email']
+        
+        result = upload_file_bucket(file, petcare_bucket, employees_bucket_folder_path, file_name)
 
-            result = petcare_bucket.upload(f"{employees_bucket_folder_path}/{file_name}", file.stream.read())
-
-            if result.status_code == 200:
-                employee['avatarUrl'] = petcare_bucket.get_public_url(f"{employees_bucket_folder_path}/{file_name}")
-        except Exception as e:
-            return jsonify({"error": str(e)})
+        employee['avatarUrl'] = result['data']
 
     employee = {key.lower(): value for key, value in employee.items()}
 
@@ -94,9 +86,8 @@ def save_employee():
 
 @employee_blueprint.put('/<id>')
 def update_employee(id):
-    isMultipart = verify_multipart_header(request)
-    if isMultipart:
-        return jsonify(isMultipart)
+    # Throw an error if request is not a multipart
+    verify_multipart_header(request)
     
     employee = request.form
     
@@ -104,9 +95,7 @@ def update_employee(id):
     found_employee = employee_table.select("*").eq("id", id).execute()
 
     if not found_employee:
-        return jsonify(
-            found_employee
-        )
+        raise Exception('Employee was not found')
     
     employee = {
         "name": employee.get('name') if employee.get('name') else found_employee.data[0]['name'],
@@ -125,8 +114,7 @@ def update_employee(id):
 
         updated = update_file_bucket(petcare_bucket, employees_bucket_folder_path, current_file_name, new_file_name, file)
 
-        if 'data' in updated:
-            employee['avatarUrl'] = updated["data"]
+        employee['avatarUrl'] = updated["data"]
 
     if employee.get('email') and found_employee.data[0]['avatarurl'] and not 'image' in request.files:
         # change photo file on bucket
@@ -155,11 +143,7 @@ def delete_employee(id):
     found_employee = employee_table.select("*").eq("id", id).execute().data
 
     if not found_employee:
-        return jsonify(
-           {
-               "error": "Index out of the range"
-           }
-        )
+        raise Exception('Employee was not found')
 
     # delete employee
     supabase_operation(
