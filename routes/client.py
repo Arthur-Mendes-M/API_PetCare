@@ -37,6 +37,8 @@ def get_all_client():
         return jsonify(
             found_client
         )
+    else:
+        raise Exception("email or password is wrong")
 
 @client_blueprint.get('/<id>')
 def get_client_by_id(id):
