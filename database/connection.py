@@ -1,7 +1,8 @@
 import os
+from werkzeug.exceptions import BadRequest, InternalServerError
 from supabase import create_client, Client
 from dotenv import load_dotenv
-from routes.patterns import validate_image
+from lib.pillow import validate_image
 
 # load environment variables 
 load_dotenv()
@@ -24,9 +25,7 @@ products_bucket_folder_path = 'Products'
 clients_bucket_folder_path = 'Clients'
 
 # create buckets - commented because already exists
-# supabase.storage.create_bucket(employees_bucket_folder_path, options={"public": True})
-# supabase.storage.create_bucket(products_bucket_folder_path, options={"public": True})
-# supabase.storage.create_bucket(clients_bucket_folder_path, options={"public": True})
+# supabase.storage.create_bucket(petcare_bucket, options={"public": True})
 
 # set bucket
 petcare_bucket = supabase.storage.from_(petcare_bucket)
@@ -44,7 +43,7 @@ def upload_file_bucket(file, bucket, bucket_folder_path, file_name):
         file_to_upload = file.stream.read()
 
     if not validate_image(file_to_upload):
-        raise Exception("Something is wrong with the image. Verify if the image is (jpg, jpeg or png) and if the size is less than or equal to 3 megabytes.")
+        raise BadRequest("Something is wrong with the image. Verify if the image is (jpg, jpeg or png) and if the size is less than or equal to 3 megabytes.")
 
     result = bucket.upload(f"{bucket_folder_path}/{file_name}", file_to_upload)
 
@@ -53,7 +52,7 @@ def upload_file_bucket(file, bucket, bucket_folder_path, file_name):
             "data": bucket.get_public_url(f"{bucket_folder_path}/{file_name}")
         }
     else:    
-        raise Exception("Unable to complete the image update")
+        raise InternalServerError("Unable to complete the image update")
         
 def update_file_bucket(bucket, bucket_folder_path, current_file_name, new_file_name, file):
     # remove old photo 

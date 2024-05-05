@@ -2,13 +2,7 @@ import os
 from PIL import Image
 import tempfile
 
-def verify_json_header(request):
-    if not request.headers['Content-Type'].startswith('application/json'):
-        raise Exception("The content-type is not a 'application/json'")
-
-def verify_multipart_header(request):
-    if not request.headers['Content-Type'].startswith('multipart/form-data'):
-        return Exception("The content-type is not a 'multipart/form-data'")
+print('ENTROU')
 
 def validate_image(image_as_byte):
     valid_image_formats = ['jpg', 'jpeg', 'png']

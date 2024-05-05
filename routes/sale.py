@@ -2,7 +2,8 @@ from flask import Blueprint, jsonify, request
 from database.connection import supabase_operation, sale_table, client_table
 from datetime import datetime
 from pytz import timezone
-from routes.patterns import verify_json_header
+from utils.valid_request_headers import verify_json_header
+from werkzeug.exceptions import BadRequest
 
 sale_blueprint = Blueprint("sales", __name__, url_prefix="/sales")
 
@@ -35,18 +36,18 @@ def save_sale():
     found_client_by_clientID = client_table.select("*").eq("id", sale['clientID']).execute().data
 
     if not found_client_by_clientID:
-        raise Exception('Cliente was not found with clientID property')
+        raise BadRequest('Cliente was not found with clientID property')
 
     SP_timezone = timezone("America/Sao_Paulo")
     today = datetime.now().astimezone(SP_timezone)
 
     sale = {
         "clientID": sale['clientID'],
-        "dateTime": today.strftime("%F %X"),
-        "paymentMethod": sale['paymentMethod'],
+        "date_time": today.strftime("%F %X"),
+        "payment_method": sale['payment_method'],
         "products": sale['products'],
     }
-    sale["total"] = sum(product['quantity'] * product['product']['salePrice'] for product in sale['products'])
+    sale["total"] = sum(product['quantity'] * product['product']['sale_price'] for product in sale['products'])
     
     sale = {key.lower(): value for key, value in sale.items()}
     return jsonify(
@@ -61,7 +62,7 @@ def delete_sale(id):
     found_sale = sale_table.select("*").eq("id", id).execute().data
     
     if not found_sale:
-        raise Exception('Sale was not found')
+        raise BadRequest('Sale was not found')
 
     return jsonify(
         supabase_operation(

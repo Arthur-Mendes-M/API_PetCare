@@ -1,7 +1,8 @@
 from flask import jsonify, request, Blueprint
 from database.connection import supabase_operation, employee_table, petcare_bucket, employees_bucket_folder_path, upload_file_bucket, update_file_bucket
 from lib.flask_bcrypt import encode_password, verify_encoded_password
-from routes.patterns import verify_json_header, verify_multipart_header
+from utils.valid_request_headers import verify_json_header, verify_multipart_header
+from werkzeug.exceptions import BadRequest
 
 # set blueprint for employees route
 employee_blueprint = Blueprint("employees", __name__, url_prefix="/employees")
@@ -40,17 +41,18 @@ def get_all_employees():
                 found_employee
             )
 
-    raise Exception("email or password is wrong")
+    raise BadRequest("email or password is wrong")
     
 @employee_blueprint.get('/<id>')
 def get_employee_by_id(id):
-    return jsonify(
-            supabase_operation(
-            employee_table
-            .select("*")
-            .eq("id", id)
-        )
+    found_employee = supabase_operation(
+        employee_table
+        .select("*")
+        .eq("id", id)
     )
+
+    return jsonify(found_employee)
+
 
 @employee_blueprint.post('/')
 def save_employee():
@@ -63,8 +65,7 @@ def save_employee():
         "name": employee.get('name'), 
         "email": employee.get('email'), 
         "password": encode_password(employee.get('password')),
-        "role": employee.get('role'),
-        "salesCount": employee.get('salesCount')
+        "role": employee.get('role')
     }
 
     if 'image' in request.files:
@@ -73,7 +74,7 @@ def save_employee():
         
         result = upload_file_bucket(file, petcare_bucket, employees_bucket_folder_path, file_name)
 
-        employee['avatarUrl'] = result['data']
+        employee['avatar_url'] = result['data']
 
     employee = {key.lower(): value for key, value in employee.items()}
 
@@ -95,14 +96,13 @@ def update_employee(id):
     found_employee = employee_table.select("*").eq("id", id).execute()
 
     if not found_employee:
-        raise Exception('Employee was not found')
+        raise BadRequest('Employee was not found')
     
     employee = {
         "name": employee.get('name') if employee.get('name') else found_employee.data[0]['name'],
         "email": employee.get('email') if employee.get('email') else found_employee.data[0]['email'], 
         "password": encode_password(employee.get('password')) if employee.get('password') else found_employee.data[0]['password'],
         "role": employee.get('role') if employee.get('role') else found_employee.data[0]['role'],
-        "salesCount": employee.get('salesCount') if employee.get('salesCount') else found_employee.data[0]['salescount']
     }
 
     if 'image' in request.files:
@@ -114,9 +114,9 @@ def update_employee(id):
 
         updated = update_file_bucket(petcare_bucket, employees_bucket_folder_path, current_file_name, new_file_name, file)
 
-        employee['avatarUrl'] = updated["data"]
+        employee['avatar_url'] = updated["data"]
 
-    if employee.get('email') and found_employee.data[0]['avatarurl'] and not 'image' in request.files:
+    if employee.get('email') and found_employee.data[0]['avatar_url'] and not 'image' in request.files:
         # change photo file on bucket
         current_file_name = found_employee.data[0]['email']
         new_file_name = employee.get('email')
@@ -126,7 +126,7 @@ def update_employee(id):
 
         current_file_name = found_employee.data[0]["email"]
 
-        employee['avatarUrl'] = update_file_bucket(petcare_bucket, employees_bucket_folder_path, current_file_name, new_file_name, file_as_byte)['data']
+        employee['avatar_url'] = update_file_bucket(petcare_bucket, employees_bucket_folder_path, current_file_name, new_file_name, file_as_byte)['data']
 
     employee = {key.lower(): value for key, value in employee.items()}
 
@@ -143,7 +143,7 @@ def delete_employee(id):
     found_employee = employee_table.select("*").eq("id", id).execute().data
 
     if not found_employee:
-        raise Exception('Employee was not found')
+        raise BadRequest('Employee was not found')
 
     # delete employee
     supabase_operation(

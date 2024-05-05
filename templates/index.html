@@ -144,7 +144,7 @@
                 <p>Este é o <mark class="italic bg-light_blue p-1 text-white font-mono">endpoint</mark> raiz da API do <u class="decoration-pink_petcare text-pink_petcare font-bold">PetCare.</u> Aqui você terá um guia completo de como utilizar todos os endpoints da <u class="decoration-green_petcare text-green_petcare font-bold">API PetCare connect.</u></p>
             </div>
 
-            <div class="w-full mt-3 flex flex-col gap-2 p-5 bg-white text-dark rounded-md shadow-lg">
+            <div class="w-full mt-3 p-5 flex flex-col gap-2 p-5 bg-white text-dark rounded-md shadow-lg">
 
                 <h1 class="flex items-center gap-2 justify-center text-xl">
                     <i data-lucide="circle-alert" class="w-[1.5rem] text-pink_petcare"></i>
@@ -153,10 +153,20 @@
 
                 <hr class="h-[2px] w-1/2 translate-x-1/2 my-1 bg-green_petcare">
 
-                <div class="max-w-[600px] text-center self-center">
-                    O deploy pela plataforma <a href="https://render.com" target="_blank" rel="noopener noreferrer" class="underline decoration-green_petcare">Render</a>, no plano gratuito (utilizado para esta API), deixa o <strong class="font-normal text-light_blue">servidor inativo</strong> após  15 minutos sem requisições! Portanto, caso sua primeira requisição demore, <strong class="font-normal text-pink_petcare">é só aguardar</strong>, não demora muito.
+                <div class="w-full flex gap-3 flex-col md:flex-row ">
+                    <div class="w-full max-w-[800px] text-center self-center">
+                        O deploy pela plataforma <a href="https://render.com" target="_blank" rel="noopener noreferrer" class="underline decoration-green_petcare">Render</a>, no plano gratuito (utilizado para esta API), deixa o <strong class="font-normal text-light_blue">servidor inativo</strong> após  15 minutos sem requisições! Portanto, caso sua primeira requisição demore, <strong class="font-normal text-pink_petcare">é só aguardar</strong>, não demora muito.
+                    </div>
+    
+                    <span class="h-[1px] w-1/2 translate-x-1/2 my-1 md:h-1/2 md:w-[1px] md:translate-y-1/2 md:mx-1 bg-pink_petcare"></span>
+    
+                    <div class="w-full max-w-[800px] self-center">    
+                        <ul class="list-disc pl-4 marker:text-light_blue">
+                            <li>Os caracteres "&lt;" e "&gt;" não devem ser incluídas nas URL's</li>
+                            <li>Ao enviar requisições que possuam corpo (body) se atente a forma como as chaves dos objetos devem ser escritos</li>
+                        </ul>
+                    </div>
                 </div>
-                
             </div>
         </section>
        
@@ -207,7 +217,7 @@
                 <ul class="list-disc mx-6">
                     <li><strong class="text-dark_blue">id</strong> <strong class="font-normal text-green_petcare">&lt;Int&gt;</strong> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Generated</u></li>
 
-                    <li><strong class="text-dark_blue">avatarurl</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
+                    <li><strong class="text-dark_blue">avatar_url</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
 
                     <li><strong class="text-dark_blue">name</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark></li>
 
@@ -216,8 +226,6 @@
                     <li><strong class="text-dark_blue">password</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark></li>
 
                     <li><strong class="text-dark_blue">role</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
-
-                    <li><strong class="text-dark_blue">salescount</strong> <strong class="font-normal text-green_petcare">&lt;Int&gt;</strong></li>
                 </ul>
             </div>
 
@@ -298,12 +306,11 @@
                             <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
-                                        &emsp;&ensp;"avatarurl": "link_para_foto",
+                                        &emsp;&ensp;"avatar_url": "link_para_foto",
                                         &emsp;&ensp;"name": "nome_do_funcionario",
                                         &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
                                         &emsp;&ensp;"password": "senha_do_funcionario",
-                                        &emsp;&ensp;"role": "cargo_do_usuario",
-                                        &emsp;&ensp;"salescount": "quantidade_de_vendas",
+                                        &emsp;&ensp;"role": "cargo_do_usuario"
                                     }]
                                 </p>
     
@@ -355,12 +362,11 @@
                             <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
-                                        &emsp;&ensp;"avatarurl": "link_para_foto",
+                                        &emsp;&ensp;"avatar_url": "link_para_foto",
                                         &emsp;&ensp;"name": "nome_do_funcionario",
                                         &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
                                         &emsp;&ensp;"password": "senha_do_funcionario",
-                                        &emsp;&ensp;"role": "cargo_do_usuario",
-                                        &emsp;&ensp;"salescount": "quantidade_de_vendas",
+                                        &emsp;&ensp;"role": "cargo_do_usuario"
                                     }]
                                 </p>
     
@@ -407,12 +413,11 @@
                             <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
-                                        &emsp;&ensp;"avatarurl": "link_para_foto",
+                                        &emsp;&ensp;"avatar_url": "link_para_foto",
                                         &emsp;&ensp;"name": "nome_do_funcionario",
                                         &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
                                         &emsp;&ensp;"password": "senha_do_funcionario",
-                                        &emsp;&ensp;"role": "cargo_do_usuario",
-                                        &emsp;&ensp;"salescount": "quantidade_de_vendas",
+                                        &emsp;&ensp;"role": "cargo_do_usuario"
                                     }]
                                 </p>
     
@@ -467,8 +472,7 @@
                                         &emsp;&ensp;"name": "nome_do_funcionario",
                                         &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
                                         &emsp;&ensp;"password": "senha_do_funcionario",
-                                        &emsp;&ensp;"role": "cargo_do_usuario",
-                                        &emsp;&ensp;"salescount": "quantidade_de_vendas",
+                                        &emsp;&ensp;"role": "cargo_do_usuario"
                                     }
                                 </p>
     
@@ -492,12 +496,11 @@
                             <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
-                                        &emsp;&ensp;"avatarurl": "link_para_foto" | Null,
+                                        &emsp;&ensp;"avatar_url": "link_para_foto" | Null,
                                         &emsp;&ensp;"name": "nome_do_funcionario",
                                         &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
                                         &emsp;&ensp;"password": "senha_do_funcionario",
-                                        &emsp;&ensp;"role": "cargo_do_usuario" | Null,
-                                        &emsp;&ensp;"salescount": "quantidade_de_vendas" | Null,
+                                        &emsp;&ensp;"role": "cargo_do_usuario" | Null
                                     }]
                                 </p>
     
@@ -575,12 +578,11 @@
                             <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
-                                        &emsp;&ensp;"avatarurl": "link_para_foto" | Null,
+                                        &emsp;&ensp;"avatar_url": "link_para_foto" | Null,
                                         &emsp;&ensp;"name": "nome_do_funcionario",
                                         &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
                                         &emsp;&ensp;"password": "senha_do_funcionario",
-                                        &emsp;&ensp;"role": "cargo_do_usuario" | Null,
-                                        &emsp;&ensp;"salescount": "quantidade_de_vendas" | Null,
+                                        &emsp;&ensp;"role": "cargo_do_usuario" | Null
                                     }]
                                 </p>
     
@@ -642,12 +644,11 @@
                             <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int,
-                                        &emsp;&ensp;"avatarurl": "link_para_foto" | Null,
+                                        &emsp;&ensp;"avatar_url": "link_para_foto" | Null,
                                         &emsp;&ensp;"name": "nome_do_funcionario",
                                         &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
                                         &emsp;&ensp;"password": "senha_do_funcionario",
-                                        &emsp;&ensp;"role": "cargo_do_usuario" | Null,
-                                        &emsp;&ensp;"salescount": "quantidade_de_vendas" | Null,
+                                        &emsp;&ensp;"role": "cargo_do_usuario" | Null
                                     }]
                                 </p>
     
@@ -684,7 +685,7 @@
                 <ul class="list-disc mx-6">
                     <li><strong class="text-dark_blue">id</strong> <strong class="font-normal text-green_petcare">&lt;Int&gt;</strong> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Generated</u></li>
 
-                    <li><strong class="text-dark_blue">imageURL</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
+                    <li><strong class="text-dark_blue">image_url</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
 
                     <li><strong class="text-dark_blue">code</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark> | <mark class="italic bg-pink_petcare text-white font-mono">Unique</mark> | <u class="font-normal text-green_petcare">&lt;Auto generated&gt;</u></li>
 
@@ -692,13 +693,13 @@
 
                     <li><strong class="text-dark_blue">description</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
 
-                    <li><strong class="text-dark_blue">quantityInStock</strong> <strong class="font-normal text-green_petcare">&lt;Integer&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark></li>
+                    <li><strong class="text-dark_blue">quantity_in_stock</strong> <strong class="font-normal text-green_petcare">&lt;Integer&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark></li>
 
-                    <li><strong class="text-dark_blue">salePrice</strong> <strong class="font-normal text-green_petcare">&lt;Decimal (10, 2) - Ex: 10.50&gt;</strong></li>
+                    <li><strong class="text-dark_blue">sale_price</strong> <strong class="font-normal text-green_petcare">&lt;Decimal (10, 2) - Ex: 10.50&gt;</strong></li>
 
-                    <li><strong class="text-dark_blue">purchasePrice</strong> <strong class="font-normal text-green_petcare">&lt;Decimal (10, 2) - Ex: 10.50&gt;</strong></li>
+                    <li><strong class="text-dark_blue">purchase_price</strong> <strong class="font-normal text-green_petcare">&lt;Decimal (10, 2) - Ex: 10.50&gt;</strong></li>
 
-                    <li><strong class="text-dark_blue">lastRefill</strong> <strong class="font-normal text-green_petcare">&lt;timestamptz (YYYY-MM-DD HH:mm:XX+XX)&gt;</strong> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Year, Month, Day, Hour, minutes, X (deslocamento da medida UTC de fuso horário)</u></li>
+                    <li><strong class="text-dark_blue">last_refill</strong> <strong class="font-normal text-green_petcare">&lt;timestamptz (YYYY-MM-DD HH:mm:XX+XX)&gt;</strong> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Year, Month, Day, Hour, minutes, X (deslocamento da medida UTC de fuso horário)</u></li>
                 </ul>
             </div>
 
@@ -773,13 +774,13 @@
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
                                         &emsp;&ensp;"code": "codigo_do_produto",
-                                        &emsp;&ensp;"imageURL": "link_para_foto",
+                                        &emsp;&ensp;"image_url": "link_para_foto",
                                         &emsp;&ensp;"name": "nome_do_produto",
                                         &emsp;&ensp;"description": "descricao_do_produto",
-                                        &emsp;&ensp;"quantityInStock": "quantidade_em_estoque_int",
-                                        &emsp;&ensp;"salePrice": "preco_de_venda_decimal",
-                                        &emsp;&ensp;"purchasePrice": "preco_de_compra_decimal",
-                                        &emsp;&ensp;"lastRefill": "data_do_ultimo_abastecimento"
+                                        &emsp;&ensp;"quantity_in_stock": "quantidade_em_estoque_int",
+                                        &emsp;&ensp;"sale_price": "preco_de_venda_decimal",
+                                        &emsp;&ensp;"purchase_price": "preco_de_compra_decimal",
+                                        &emsp;&ensp;"last_refill": "data_do_ultimo_abastecimento"
                                     }]
                                 </p>
     
@@ -824,13 +825,13 @@
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
                                         &emsp;&ensp;"code": "codigo_do_produto",
-                                        &emsp;&ensp;"imageURL": "link_para_foto",
+                                        &emsp;&ensp;"image_url": "link_para_foto",
                                         &emsp;&ensp;"name": "nome_do_produto",
                                         &emsp;&ensp;"description": "descricao_do_produto",
-                                        &emsp;&ensp;"quantityInStock": "quantidade_em_estoque_int",
-                                        &emsp;&ensp;"salePrice": "preco_de_venda_decimal",
-                                        &emsp;&ensp;"purchasePrice": "preco_de_compra_decimal",
-                                        &emsp;&ensp;"lastRefill": "data_do_ultimo_abastecimento"
+                                        &emsp;&ensp;"quantity_in_stock": "quantidade_em_estoque_int",
+                                        &emsp;&ensp;"sale_price": "preco_de_venda_decimal",
+                                        &emsp;&ensp;"purchase_price": "preco_de_compra_decimal",
+                                        &emsp;&ensp;"last_refill": "data_do_ultimo_abastecimento"
                                     }]
                                 </p>
     
@@ -885,10 +886,10 @@
                                         &emsp;&ensp;"image": &lt;arquivo_de_imagem&gt;,
                                         &emsp;&ensp;"name": "nome_do_produto",
                                         &emsp;&ensp;"description": "descricao_do_produto",
-                                        &emsp;&ensp;"quantityInStock": 20,
-                                        &emsp;&ensp;"salePrice": 19.50,
-                                        &emsp;&ensp;"purchasePrice": 10,
-                                        &emsp;&ensp;"lastRefill": "data_do_ultimo_abastecimento"
+                                        &emsp;&ensp;"quantity_in_stock": 20,
+                                        &emsp;&ensp;"sale_price": 19.50,
+                                        &emsp;&ensp;"purchase_price": 10,
+                                        &emsp;&ensp;"last_refill": "data_do_ultimo_abastecimento"
                                     }
                                 </p>
     
@@ -903,7 +904,7 @@
                             </code>
                             <small class="italic w-full flex items-center gap-1 break-all">
                                 <i data-lucide="circle-alert" class="w-[1.3rem] text-pink_petcare"></i>
-                                Os elementos OBRIGATÓRIOS são somente: <strong class="font-normal text-pink_petcare">"name"</strong>, <strong class="font-normal text-pink_petcare">"quantityInStock"</strong>, <strong class="font-normal text-pink_petcare">"salePrice"</strong> e <strong class="font-normal text-pink_petcare">"purchasePrice"</strong>
+                                Os elementos OBRIGATÓRIOS são somente: <strong class="font-normal text-pink_petcare">"name"</strong>, <strong class="font-normal text-pink_petcare">"quantity_in_stock"</strong>, <strong class="font-normal text-pink_petcare">"sale_price"</strong> e <strong class="font-normal text-pink_petcare">"purchase_price"</strong>
                             </small>
                         </div>
                         <div>
@@ -913,13 +914,13 @@
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
                                         &emsp;&ensp;"code": "codigo_do_produto",
-                                        &emsp;&ensp;"imageURL": "link_para_foto",
+                                        &emsp;&ensp;"image_url": "link_para_foto",
                                         &emsp;&ensp;"name": "nome_do_produto",
                                         &emsp;&ensp;"description": "descricao_do_produto",
-                                        &emsp;&ensp;"quantityInStock": "quantidade_em_estoque_int",
-                                        &emsp;&ensp;"salePrice": "preco_de_venda_decimal",
-                                        &emsp;&ensp;"purchasePrice": "preco_de_compra_decimal",
-                                        &emsp;&ensp;"lastRefill": "data_do_ultimo_abastecimento"
+                                        &emsp;&ensp;"quantity_in_stock": "quantidade_em_estoque_int",
+                                        &emsp;&ensp;"sale_price": "preco_de_venda_decimal",
+                                        &emsp;&ensp;"purchase_price": "preco_de_compra_decimal",
+                                        &emsp;&ensp;"last_refill": "data_do_ultimo_abastecimento"
                                     }]
                                 </p>
     
@@ -976,9 +977,9 @@
                                         &emsp;&ensp;"image": &lt;arquivo_de_imagem&gt;,
                                         &emsp;&ensp;"name": "nome_do_produto",
                                         &emsp;&ensp;"description": "descricao_do_produto",
-                                        &emsp;&ensp;"quantityInStock": "quantidade_em_estoque_int",
-                                        &emsp;&ensp;"salePrice": "preco_de_venda_decimal",
-                                        &emsp;&ensp;"purchasePrice": "preco_de_compra_decimal",
+                                        &emsp;&ensp;"quantity_in_stock": "quantidade_em_estoque_int",
+                                        &emsp;&ensp;"sale_price": "preco_de_venda_decimal",
+                                        &emsp;&ensp;"purchase_price": "preco_de_compra_decimal",
                                     }
                                 </p>
     
@@ -1002,13 +1003,13 @@
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
                                         &emsp;&ensp;"code": "codigo_do_produto",
-                                        &emsp;&ensp;"imageURL": "link_para_foto",
+                                        &emsp;&ensp;"image_url": "link_para_foto",
                                         &emsp;&ensp;"name": "nome_do_produto",
                                         &emsp;&ensp;"description": "descricao_do_produto",
-                                        &emsp;&ensp;"quantityInStock": "quantidade_em_estoque_int",
-                                        &emsp;&ensp;"salePrice": "preco_de_venda_decimal",
-                                        &emsp;&ensp;"purchasePrice": "preco_de_compra_decimal",
-                                        &emsp;&ensp;"lastRefill": "data_do_ultimo_abastecimento"
+                                        &emsp;&ensp;"quantity_in_stock": "quantidade_em_estoque_int",
+                                        &emsp;&ensp;"sale_price": "preco_de_venda_decimal",
+                                        &emsp;&ensp;"purchase_price": "preco_de_compra_decimal",
+                                        &emsp;&ensp;"last_refill": "data_do_ultimo_abastecimento"
                                     }]
                                 </p>
     
@@ -1071,13 +1072,13 @@
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
                                         &emsp;&ensp;"code": "codigo_do_produto",
-                                        &emsp;&ensp;"imageURL": "link_para_foto",
+                                        &emsp;&ensp;"image_url": "link_para_foto",
                                         &emsp;&ensp;"name": "nome_do_produto",
                                         &emsp;&ensp;"description": "descricao_do_produto",
-                                        &emsp;&ensp;"quantityInStock": "quantidade_em_estoque_int",
-                                        &emsp;&ensp;"salePrice": "preco_de_venda_decimal",
-                                        &emsp;&ensp;"purchasePrice": "preco_de_compra_decimal",
-                                        &emsp;&ensp;"lastRefill": "data_do_ultimo_abastecimento"
+                                        &emsp;&ensp;"quantity_in_stock": "quantidade_em_estoque_int",
+                                        &emsp;&ensp;"sale_price": "preco_de_venda_decimal",
+                                        &emsp;&ensp;"purchase_price": "preco_de_compra_decimal",
+                                        &emsp;&ensp;"last_refill": "data_do_ultimo_abastecimento"
                                     }]
                                 </p>
 
@@ -1115,7 +1116,7 @@
                 <ul class="list-disc mx-6">
                     <li><strong class="text-dark_blue">id</strong> <strong class="font-normal text-green_petcare">&lt;Int&gt;</strong> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Generated</u></li>
 
-                    <li><strong class="text-dark_blue">avatarurl</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
+                    <li><strong class="text-dark_blue">avatar_url</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
 
                     <li><strong class="text-dark_blue">name</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark></li>
 
@@ -1202,7 +1203,7 @@
                             <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
-                                        &emsp;&ensp;"avatarurl": "link_para_foto",
+                                        &emsp;&ensp;"avatar_url": "link_para_foto",
                                         &emsp;&ensp;"name": "nome_do_cliente",
                                         &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
                                         &emsp;&ensp;"password": "senha_do_cliente"
@@ -1257,7 +1258,7 @@
                             <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
-                                        &emsp;&ensp;"avatarurl": "link_para_foto",
+                                        &emsp;&ensp;"avatar_url": "link_para_foto",
                                         &emsp;&ensp;"name": "nome_do_cliente",
                                         &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
                                         &emsp;&ensp;"password": "senha_do_cliente"
@@ -1307,7 +1308,7 @@
                             <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
-                                        &emsp;&ensp;"avatarurl": "link_para_foto",
+                                        &emsp;&ensp;"avatar_url": "link_para_foto",
                                         &emsp;&ensp;"name": "nome_do_cliente",
                                         &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
                                         &emsp;&ensp;"password": "senha_do_cliente"
@@ -1388,7 +1389,7 @@
                             <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
-                                        &emsp;&ensp;"avatarurl": "link_para_foto" | Null,
+                                        &emsp;&ensp;"avatar_url": "link_para_foto" | Null,
                                         &emsp;&ensp;"name": "nome_do_cliente",
                                         &emsp;&ensp;"email": "email_cadastrado@dominio.com",
                                         &emsp;&ensp;"password": "senha_do_cliente"
@@ -1469,7 +1470,7 @@
                             <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
-                                        &emsp;&ensp;"avatarurl": "link_para_foto" | Null,
+                                        &emsp;&ensp;"avatar_url": "link_para_foto" | Null,
                                         &emsp;&ensp;"name": "nome_do_cliente",
                                         &emsp;&ensp;"email": "email_atualizado@dominio.com",
                                         &emsp;&ensp;"password": "senha_do_cliente,
@@ -1534,7 +1535,7 @@
                             <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int,
-                                        &emsp;&ensp;"avatarurl": "link_para_foto" | Null,
+                                        &emsp;&ensp;"avatar_url": "link_para_foto" | Null,
                                         &emsp;&ensp;"name": "nome_do_cliente",
                                         &emsp;&ensp;"email": "email_a_ser_buscado@dominio.com",
                                         &emsp;&ensp;"password": "senha_do_cliente"
@@ -1577,11 +1578,11 @@
 
                     <li><strong class="text-dark_blue">clientID</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
 
-                    <li><strong class="text-dark_blue">dateTime</strong> <strong class="font-normal text-green_petcare">&lt;timestamptz&gt;</strong> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Automatic</u></li>
+                    <li><strong class="text-dark_blue">date_time</strong> <strong class="font-normal text-green_petcare">&lt;timestamptz&gt;</strong> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Automatic</u></li>
 
                     <li><strong class="text-dark_blue">total</strong> <strong class="font-normal text-green_petcare">&lt;Decimal (10, 2) - Ex: 10.50&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Automatic</u></li>
 
-                    <li><strong class="text-dark_blue">paymentMethod</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong>
+                    <li><strong class="text-dark_blue">payment_method</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong>
 
                     <li><strong class="text-dark_blue">products</strong> <strong class="font-normal text-green_petcare">&lt;json[]&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Ex: [{"quantity": 3, "product": {"name": "nome_do_produto", ...}}, {"quantity"...}]</u></li>
                 </ul>
@@ -1658,9 +1659,9 @@
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
                                         &emsp;&ensp;"clientID": "id_do_cliente_int",
-                                        &emsp;&ensp;"datetime": "data_da_venda",
+                                        &emsp;&ensp;"date_time": "data_da_venda",
                                         &emsp;&ensp;"total": "total_em_reais_decimal",
-                                        &emsp;&ensp;"paymentMethod": "metodo_de_pagamento",
+                                        &emsp;&ensp;"payment_method": "metodo_de_pagamento",
                                         &emsp;&ensp;"products": [lista_de_objetos_de_produtos]
                                     }]
                                 </p>
@@ -1706,9 +1707,9 @@
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
                                         &emsp;&ensp;"clientID": "id_do_cliente_int",
-                                        &emsp;&ensp;"datetime": "data_da_venda",
+                                        &emsp;&ensp;"date_time": "data_da_venda",
                                         &emsp;&ensp;"total": "total_em_reais_decimal",
-                                        &emsp;&ensp;"paymentMethod": "metodo_de_pagamento",
+                                        &emsp;&ensp;"payment_method": "metodo_de_pagamento",
                                         &emsp;&ensp;"products": [lista_de_objetos_de_produtos]
                                     }]
                                 </p>
@@ -1762,7 +1763,7 @@
                             <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>{
                                         &emsp;&ensp;"clientID": "id_do_cliente_int",
-                                        &emsp;&ensp;"paymentMethod": "metodo_de_pagamento",
+                                        &emsp;&ensp;"payment_method": "metodo_de_pagamento",
                                         &emsp;&ensp;"products": [lista_de_objetos_de_produtos]
                                     }
                                 </p>
@@ -1778,7 +1779,7 @@
                             </code>
                             <small class="italic w-full flex items-center gap-1 break-all">
                                 <i data-lucide="circle-alert" class="w-[1.3rem] text-pink_petcare"></i>
-                                Os elementos OBRIGATÓRIOS são somente: <strong class="font-normal text-pink_petcare">"clientID"</strong>, <strong class="font-normal text-pink_petcare">"paymentMethod"</strong>, <strong class="font-normal text-pink_petcare">"salePrice"</strong> e <strong class="font-normal text-pink_petcare">"products"</strong>
+                                Os elementos OBRIGATÓRIOS são somente: <strong class="font-normal text-pink_petcare">"clientID"</strong>, <strong class="font-normal text-pink_petcare">"payment_method"</strong>, <strong class="font-normal text-pink_petcare">"sale_price"</strong> e <strong class="font-normal text-pink_petcare">"products"</strong>
                             </small>
                         </div>
                         <div>
@@ -1788,9 +1789,9 @@
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
                                         &emsp;&ensp;"clientID": "id_do_cliente_int",
-                                        &emsp;&ensp;"datetime": "data_da_venda",
+                                        &emsp;&ensp;"date_time": "data_da_venda",
                                         &emsp;&ensp;"total": "total_em_reais_decimal",
-                                        &emsp;&ensp;"paymentMethod": "metodo_de_pagamento",
+                                        &emsp;&ensp;"payment_method": "metodo_de_pagamento",
                                         &emsp;&ensp;"products": [lista_de_objetos_de_produtos]
                                     }]
                                 </p>
@@ -1885,9 +1886,9 @@
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
                                         &emsp;&ensp;"clientID": "id_do_cliente_int",
-                                        &emsp;&ensp;"datetime": "data_da_venda",
+                                        &emsp;&ensp;"date_time": "data_da_venda",
                                         &emsp;&ensp;"total": "total_em_reais_decimal",
-                                        &emsp;&ensp;"paymentMethod": "metodo_de_pagamento",
+                                        &emsp;&ensp;"payment_method": "metodo_de_pagamento",
                                         &emsp;&ensp;"products": [lista_de_objetos_de_produtos]
                                     }]
                                 </p>

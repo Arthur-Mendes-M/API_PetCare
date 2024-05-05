@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request
 from database.connection import supabase_operation, client_table, petcare_bucket, clients_bucket_folder_path, update_file_bucket, upload_file_bucket
 from lib.flask_bcrypt import encode_password, verify_encoded_password
-from routes.patterns import verify_json_header, verify_multipart_header
+from utils.valid_request_headers import verify_json_header, verify_multipart_header
+from werkzeug.exceptions import BadRequest
 
 client_blueprint = Blueprint("clients", __name__, url_prefix="/clients")
 
@@ -27,7 +28,7 @@ def get_all_client():
     )
 
     if not found_client:
-        raise Exception("email or password is wrong")
+        raise BadRequest("email or password is wrong")
     
     client = found_client[0]
     encoded_password = client["password"]
@@ -38,7 +39,7 @@ def get_all_client():
             found_client
         )
     else:
-        raise Exception("email or password is wrong")
+        raise BadRequest("email or password is wrong")
 
 @client_blueprint.get('/<id>')
 def get_client_by_id(id):
@@ -69,7 +70,7 @@ def save_client():
 
         result = upload_file_bucket(file, petcare_bucket, clients_bucket_folder_path, file_name)
 
-        client["avatarURL"] = result['data']
+        client["avatar_url"] = result['data']
         
     client = {key.lower(): value for key, value in client.items()}
 
@@ -90,7 +91,7 @@ def update_client(id):
     found_client = client_table.select("*").eq("id", id).execute()
 
     if not found_client:
-        raise Exception('Cliente was not found')
+        raise BadRequest("Cliente was not found")
     
     client = {
         "name": client.get('name') if client.get('name') else found_client.data[0]['name'],
@@ -107,9 +108,9 @@ def update_client(id):
 
         updated = update_file_bucket(petcare_bucket, clients_bucket_folder_path, current_file_name, new_file_name, file)
 
-        client['avatarURL'] = updated["data"]
+        client['avatar_url'] = updated["data"]
 
-    if client.get('email') and found_client.data[0]['avatarurl'] and not 'image' in request.files:
+    if client.get('email') and found_client.data[0]['avatar_url'] and not 'image' in request.files:
         # change photo file on bucket
         current_file_name = found_client.data[0]['email']
         new_file_name = client.get('email')
@@ -121,7 +122,7 @@ def update_client(id):
 
         updated = update_file_bucket(petcare_bucket, clients_bucket_folder_path, current_file_name, new_file_name, file_as_byte)
         
-        client['avatarUrl'] = updated['data']
+        client['avatar_url'] = updated['data']
 
     client = {key.lower(): value for key, value in client.items()}
 
@@ -138,7 +139,7 @@ def delete_client(id):
     found_client = client_table.select("*").eq("id", id).execute().data
 
     if not found_client:
-        raise Exception('Client was not found')
+        raise BadRequest('Client was not found')
 
     supabase_operation(
         client_table

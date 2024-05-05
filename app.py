@@ -1,6 +1,6 @@
 from werkzeug.exceptions import HTTPException
 from flask import Flask, render_template, jsonify, make_response
-from auth import protect_routes
+from utils.auth import protect_routes
 import json
 
 # import all blueprints (routes set by entity)
@@ -45,15 +45,13 @@ def get_documentation():
     return render_template('index.html', html_variables=html_variables)
 
 @app.errorhandler(HTTPException)
-def handle_exception(e):
-    """Return JSON instead of HTML for HTTP errors."""
-    # start with the correct headers and status code from the error
-    response = e.get_response()
+def handle_exception(error):
+    response = error.get_response()
     # replace the body with JSON
     response.data = json.dumps({
-        "code": e.code,
-        "name": e.name,
-        "description": e.description,
+        "code": error.code,
+        "name": error.name,
+        "description": error.description,
     })
     response.content_type = "application/json"
     return response

@@ -1,31 +1,32 @@
+-- create database if not exists PetCare;
+
 create table
   Product (
     id bigint primary key generated always as identity,
     code varchar(255) unique not null,
-    imageURL varchar(255) unique,
+    image_url varchar(255) unique,
     name varchar(255) not null,
     description text,
-    quantityInStock int not null,
-    salePrice decimal(10, 2) not null,
-    purchasePrice decimal(10, 2) not null,
-    lastRefill timestamp with time zone
+    quantity_in_stock int not null,
+    sale_price decimal(10, 2) not null,
+    purchase_price decimal(10, 2) not null,
+    last_refill timestamp with time zone
 );
 
 create table
   Employee (
     id bigint primary key generated always as identity,
-    avatarURL varchar(255) unique,
+    avatar_url varchar(255) unique,
     name varchar(255) not null,
     email varchar(255) unique not null,
     password varchar(255) not null,
-    role varchar(100),
-    salesCount int
+    role varchar(100)
 );
 
 create table 
   Client (
     id bigint primary key generated always as identity,
-    avatarURL varchar(255) unique,
+    avatar_url varchar(255) unique,
     name varchar(255) not null,
     email varchar(255) unique not null,
     password varchar(255) not null
@@ -35,9 +36,9 @@ create table
   Sale (
     id bigint primary key generated always as identity,
     clientID bigint,
-    dateTime timestamp with time zone not null,
+    date_time timestamp with time zone not null,
     total decimal(10, 2) not null,
-    paymentMethod text,
+    payment_method text,
     products json[] not null,
     foreign key (clientID) references Client (id)
 );

@@ -3,7 +3,8 @@ from database.connection import supabase_operation, product_table, petcare_bucke
 import uuid
 from datetime import datetime
 from pytz import timezone
-from routes.patterns import verify_multipart_header
+from utils.valid_request_headers import verify_multipart_header
+from werkzeug.exceptions import BadRequest
 
 # set blueprint for products route
 product_blueprint = Blueprint("products", __name__, url_prefix="/products")
@@ -41,10 +42,10 @@ def save_product():
         "name": product.get('name'),
         "code": str(uuid.uuid1()),
         "description": product.get('description'),
-        "quantityInStock": product.get('quantityInStock'),
-        "salePrice": product.get('salePrice'),
-        "purchasePrice": product.get('purchasePrice'),
-        "lastRefill": today.strftime("%F %X")
+        "quantity_in_stock": product.get('quantity_in_stock'),
+        "sale_price": product.get('sale_price'),
+        "purchase_price": product.get('purchase_price'),
+        "last_refill": today.strftime("%F %X")
     }
 
     if 'image' in request.files:
@@ -53,7 +54,7 @@ def save_product():
 
         result = upload_file_bucket(file, petcare_bucket, products_bucket_folder_path, file_name)
 
-        product['imageURL'] = result['data']
+        product['image_url'] = result['data']
 
     product = {key.lower(): value for key, value in product.items()}
 
@@ -74,7 +75,7 @@ def update_product(id):
     found_product = product_table.select("*").eq("id", id).execute()
 
     if not found_product:
-        raise Exception('Product was not found')
+        raise BadRequest('Product was not found')
     
     SP_timezone = timezone("America/Sao_Paulo")
     today = datetime.now().astimezone(SP_timezone)
@@ -82,10 +83,10 @@ def update_product(id):
     product = {
         "name": product.get('name') if product.get("name") else found_product.data[0]['name'],
         "description": product.get('description') if product.get("description") else found_product.data[0]['description'],
-        "quantityInStock": product.get('quantityInStock') if product.get("quantityInStock") else found_product.data[0]['quantityinstock'],
-        "salePrice": product.get('salePrice') if product.get("salePrice") else found_product.data[0]['saleprice'],
-        "purchasePrice": product.get('purchasePrice') if product.get("purchasePrice") else found_product.data[0]['purchaseprice'],
-        "lastRefill": today.strftime("%F %X") if product.get("quantityInStock") else found_product.data[0]['lastrefill']
+        "quantity_in_stock": product.get('quantity_in_stock') if product.get("quantity_in_stock") else found_product.data[0]['quantity_in_stock'],
+        "sale_price": product.get('sale_price') if product.get("sale_price") else found_product.data[0]['sale_price'],
+        "purchase_price": product.get('purchase_price') if product.get("purchase_price") else found_product.data[0]['purchase_price'],
+        "last_refill": today.strftime("%F %X") if product.get("quantity_in_stock") else found_product.data[0]['last_refill']
     }
 
     if 'image' in request.files:
@@ -97,7 +98,7 @@ def update_product(id):
 
         updated = update_file_bucket(petcare_bucket, products_bucket_folder_path, current_file_name, new_file_name, file)
 
-        product['imageURL'] = updated["data"]
+        product['image_url'] = updated["data"]
     
     product = {key.lower(): value for key, value in product.items()}
 
@@ -114,7 +115,7 @@ def delete_product(id):
     found_product = product_table.select("*").eq("id", id).execute().data
 
     if not found_product:
-        raise Exception('Product was not found')
+        raise BadRequest('Product was not found')
 
     supabase_operation(
         product_table
