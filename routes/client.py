@@ -91,7 +91,7 @@ def update_client(id):
     found_client = client_table.select("*").eq("id", id).execute()
 
     if not found_client:
-        raise BadRequest("Cliente was not found")
+        raise BadRequest("Client was not found")
     
     client = {
         "name": client.get('name') if client.get('name') else found_client.data[0]['name'],

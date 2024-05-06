@@ -7,7 +7,7 @@ from lib.pillow import validate_image
 # load environment variables 
 load_dotenv()
 
-# create supabase cliente for manage database
+# create supabase client for manage database
 url: str = os.getenv("SUPABASE_URL")
 key: str = os.getenv("SUPABASE_KEY")
 supabase: Client = create_client(url, key)

@@ -66,11 +66,11 @@ def save_product():
     )
 
 @product_blueprint.put('/<id>')
-def update_product(id):
+def update_product(id, product=None):
     # Throw an error if request is not a multipart
     verify_multipart_header(request)
     
-    product = request.form
+    product = product if product else request.form
 
     found_product = product_table.select("*").eq("id", id).execute()
 
@@ -83,7 +83,7 @@ def update_product(id):
     product = {
         "name": product.get('name') if product.get("name") else found_product.data[0]['name'],
         "description": product.get('description') if product.get("description") else found_product.data[0]['description'],
-        "quantity_in_stock": product.get('quantity_in_stock') if product.get("quantity_in_stock") else found_product.data[0]['quantity_in_stock'],
+        "quantity_in_stock": product.get('quantity_in_stock') if product.get("quantity_in_stock") or product.get("quantity_in_stock") == 0 else found_product.data[0]['quantity_in_stock'],
         "sale_price": product.get('sale_price') if product.get("sale_price") else found_product.data[0]['sale_price'],
         "purchase_price": product.get('purchase_price') if product.get("purchase_price") else found_product.data[0]['purchase_price'],
         "last_refill": today.strftime("%F %X") if product.get("quantity_in_stock") else found_product.data[0]['last_refill']

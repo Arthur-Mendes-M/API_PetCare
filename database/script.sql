@@ -35,10 +35,10 @@ create table
 create table
   Sale (
     id bigint primary key generated always as identity,
-    clientID bigint,
+    client_id bigint,
     date_time timestamp with time zone not null,
     total decimal(10, 2) not null,
     payment_method text,
     products json[] not null,
-    foreign key (clientID) references Client (id)
+    foreign key (client_id) references Client (id)
 );

@@ -1576,7 +1576,7 @@
                 <ul class="list-disc mx-6">
                     <li><strong class="text-dark_blue">id</strong> <strong class="font-normal text-green_petcare">&lt;Int&gt;</strong> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Generated</u></li>
 
-                    <li><strong class="text-dark_blue">clientID</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
+                    <li><strong class="text-dark_blue">client_id</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
 
                     <li><strong class="text-dark_blue">date_time</strong> <strong class="font-normal text-green_petcare">&lt;timestamptz&gt;</strong> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Automatic</u></li>
 
@@ -1584,7 +1584,7 @@
 
                     <li><strong class="text-dark_blue">payment_method</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong>
 
-                    <li><strong class="text-dark_blue">products</strong> <strong class="font-normal text-green_petcare">&lt;json[]&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Ex: [{"quantity": 3, "product": {"name": "nome_do_produto", ...}}, {"quantity"...}]</u></li>
+                    <li><strong class="text-dark_blue">products</strong> <strong class="font-normal text-green_petcare">&lt;json[{"quantity": x, "product_id": x}, ...]&gt;</strong> | <mark class="italic bg-pink_petcare text-white font-mono">Not null</mark> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Ex: [{"quantity": 3, "product_id": 2}, {"id": 5, "product_id"...}]</u></li>
                 </ul>
             </div>
 
@@ -1658,7 +1658,7 @@
                             <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
-                                        &emsp;&ensp;"clientID": "id_do_cliente_int",
+                                        &emsp;&ensp;"client_id": "id_do_cliente_int",
                                         &emsp;&ensp;"date_time": "data_da_venda",
                                         &emsp;&ensp;"total": "total_em_reais_decimal",
                                         &emsp;&ensp;"payment_method": "metodo_de_pagamento",
@@ -1706,7 +1706,7 @@
                             <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
-                                        &emsp;&ensp;"clientID": "id_do_cliente_int",
+                                        &emsp;&ensp;"client_id": "id_do_cliente_int",
                                         &emsp;&ensp;"date_time": "data_da_venda",
                                         &emsp;&ensp;"total": "total_em_reais_decimal",
                                         &emsp;&ensp;"payment_method": "metodo_de_pagamento",
@@ -1762,7 +1762,7 @@
                             <h5>Corpo da requisição | <strong class="text-green_petcare font-normal">JSON</strong></h5>
                             <code class="block rounded-md border border-light_blue shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>{
-                                        &emsp;&ensp;"clientID": "id_do_cliente_int",
+                                        &emsp;&ensp;"client_id": "id_do_cliente_int",
                                         &emsp;&ensp;"payment_method": "metodo_de_pagamento",
                                         &emsp;&ensp;"products": [lista_de_objetos_de_produtos]
                                     }
@@ -1779,7 +1779,7 @@
                             </code>
                             <small class="italic w-full flex items-center gap-1 break-all">
                                 <i data-lucide="circle-alert" class="w-[1.3rem] text-pink_petcare"></i>
-                                Os elementos OBRIGATÓRIOS são somente: <strong class="font-normal text-pink_petcare">"clientID"</strong>, <strong class="font-normal text-pink_petcare">"payment_method"</strong>, <strong class="font-normal text-pink_petcare">"sale_price"</strong> e <strong class="font-normal text-pink_petcare">"products"</strong>
+                                Os elementos OBRIGATÓRIOS são somente: <strong class="font-normal text-pink_petcare">"client_id"</strong>, <strong class="font-normal text-pink_petcare">"payment_method"</strong>, <strong class="font-normal text-pink_petcare">"sale_price"</strong> e <strong class="font-normal text-pink_petcare">"products"</strong>
                             </small>
                         </div>
                         <div>
@@ -1788,7 +1788,7 @@
                             <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
-                                        &emsp;&ensp;"clientID": "id_do_cliente_int",
+                                        &emsp;&ensp;"client_id": "id_do_cliente_int",
                                         &emsp;&ensp;"date_time": "data_da_venda",
                                         &emsp;&ensp;"total": "total_em_reais_decimal",
                                         &emsp;&ensp;"payment_method": "metodo_de_pagamento",
@@ -1885,7 +1885,7 @@
                             <code class="block rounded-md border border-green_petcare shadow-xl break-words md:flex md:justify-between">
                                 <p class="whitespace-pre-line px-2 py-2 max-w-fit min-h-fit flex items-center h-fit break-all" data-clipboard-text>[{
                                         &emsp;&ensp;"id": "id_int",
-                                        &emsp;&ensp;"clientID": "id_do_cliente_int",
+                                        &emsp;&ensp;"client_id": "id_do_cliente_int",
                                         &emsp;&ensp;"date_time": "data_da_venda",
                                         &emsp;&ensp;"total": "total_em_reais_decimal",
                                         &emsp;&ensp;"payment_method": "metodo_de_pagamento",

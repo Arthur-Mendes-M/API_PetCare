@@ -2,8 +2,6 @@ import os
 from PIL import Image
 import tempfile
 
-print('ENTROU')
-
 def validate_image(image_as_byte):
     valid_image_formats = ['jpg', 'jpeg', 'png']
 
