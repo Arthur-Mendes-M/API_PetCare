@@ -49,33 +49,33 @@ def save_sale():
         "date_time": today.strftime("%F %X"),
         "payment_method": sale['payment_method'],
         "products": sale['products'],
+        "total": 0
     }
 
-    products = []
+    products = {
+        product['product_id']: json.loads(get_product_by_id(product['product_id']).get_data(True))[0] for product in sale['products']
+    }
 
-    # Verify if some product don't have stock
-    for info in sale['products']:
-        product_by_id = get_product_by_id(info['product_id']).get_data(True)
-        product_dic = json.loads(product_by_id)
+    for sold_product_info in sale['products']:
+        sold_product_id = sold_product_info['product_id']
 
-        current_product = product_dic[0]
-        products.append(current_product)
+        sold_quantity = sold_product_info['quantity']
+        sold_product_price = products[sold_product_id]['sale_price']
 
-        if current_product['quantity_in_stock'] - info['quantity'] < 0:
-            raise BadRequest('Wrong quantities on sold products. The quantity of purchase must be less or equal to quantity_in_stock of products.')    
+        calculated_current_sold_product = sum([sold_quantity * sold_product_price])
 
-    sale["total"] = sum(
-        sale['products'][0]['quantity'] * product['sale_price'] for product in products
-    )
-    
-    # get quantity_in_stock of each one product
-    # update each one product just changing the quantity_in_stock property
-    for info in sale["products"]:
-        sold_quantity = info['quantity']
+        if calculated_current_sold_product < 0:
+            raise BadRequest('Wrong quantities on sold products. The quantity of purchase must be less or equal to quantity_in_stock of products.')
+        
+        sale['total'] += calculated_current_sold_product
 
-        # get object on products from id 
-        product = next(product for product in products if product["id"] == info['product_id'])
+    # # get quantity_in_stock of each one product
+    # # update each one product just changing the quantity_in_stock property
+    for sold_product_info in sale["products"]:
+        sold_quantity = sold_product_info['quantity']
+        sold_product_id = sold_product_info['product_id']
 
+        product = products[sold_product_id]
         current_quantity_in_stock = product['quantity_in_stock']
 
         # decrease sold quantity of quantity_in_stock 
@@ -84,7 +84,7 @@ def save_sale():
         }
 
         # update the quantity in stock of each product
-        update_product(product['id'], product_to_update)
+        update_product(sold_product_id, product_to_update)
     
     sale = {key.lower(): value for key, value in sale.items()}
     return jsonify(
