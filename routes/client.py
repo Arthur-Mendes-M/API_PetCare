@@ -3,6 +3,7 @@ from database.connection import supabase_operation, client_table, petcare_bucket
 from lib.flask_bcrypt import encode_password, verify_encoded_password
 from utils.valid_request_headers import verify_json_header, verify_multipart_header
 from werkzeug.exceptions import BadRequest
+import json
 
 client_blueprint = Blueprint("clients", __name__, url_prefix="/clients")
 
@@ -58,10 +59,17 @@ def save_client():
     
     client = request.form
 
+    try:
+        address = json.loads(client.get('address'))
+    except:
+        raise BadRequest("Address isn't a JSON/dictionary")
+
     client = {
         "name": client.get('name'),
         "email": client.get('email'),
-        "password": encode_password(client.get('password'))
+        "password": encode_password(client.get('password')),
+        "address": address,
+        "birthday": client.get('birthday')
     }
 
     if 'image' in request.files:
@@ -90,13 +98,23 @@ def update_client(id):
 
     found_client = client_table.select("*").eq("id", id).execute()
 
-    if not found_client:
-        raise BadRequest("Client was not found")
-    
+    if not found_client: raise BadRequest("Client was not found")
+
+    if client.get('address'):
+        try:
+            address = json.loads(client.get('address'))
+        except:
+            raise BadRequest("Address isn't a JSON/dictionary")
+
     client = {
         "name": client.get('name') if client.get('name') else found_client.data[0]['name'],
         "email": client.get('email') if client.get('email') else found_client.data[0]['email'], 
-        "password": encode_password(client.get('password')) if client.get('password') else found_client.data[0]['password']
+        "password": encode_password(client.get('password')) if client.get('password') else found_client.data[0]['password'],
+        "address": {
+            **found_client.data[0]['address'],
+            **address
+        } if client.get('address') else {**found_client.data[0]['address']},
+        "birthday": client.get('birthday') if client.get('birthday') else found_client.data[0]['birthday'],
     }
 
     if 'image' in request.files:

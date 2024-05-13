@@ -29,7 +29,9 @@ create table
     avatar_url varchar(255) unique,
     name varchar(255) not null,
     email varchar(255) unique not null,
-    password varchar(255) not null
+    password varchar(255) not null,
+    address json not null default {"cep": "00000000", "street": "","street_number": "0000", "neighborhood": "", "city": "", "state": ""},
+    birthday date not null
 );
 
 create table
