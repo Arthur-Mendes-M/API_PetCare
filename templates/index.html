@@ -1596,7 +1596,7 @@
                 <ul class="list-disc mx-6">
                     <li><strong class="text-dark_blue">id</strong> <strong class="font-normal text-green_petcare">&lt;Int&gt;</strong> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Generated</u></li>
 
-                    <li><strong class="text-dark_blue">client_id</strong> <strong class="font-normal text-green_petcare">&lt;String&gt;</strong></li>
+                    <li><strong class="text-dark_blue">client_id</strong> <strong class="font-normal text-green_petcare">&lt;Int&gt;</strong></li>
 
                     <li><strong class="text-dark_blue">date_time</strong> <strong class="font-normal text-green_petcare">&lt;timestamptz&gt;</strong> : <u class="font-normal bg-gray_one p-1 decoration-pink_petcare">Automatic</u></li>
 
@@ -1616,7 +1616,8 @@
                 <div class="mb-9 flex flex-col items-center">
                     <h3 class="text-2xl w-fit"><mark class="bg-green_petcare py-1 px-3 text-white font-mono">GET</mark></h3>
 
-                    <p class="max-w-2xl text-center">No endpoint das vendas, com a rota GET, existem duas opções, onde ambas utilizam da mesma url. O que diferencia as duas é o <u class="no-underline text-pink_petcare font-bold">parâmetro de rota (id)</u>.</p>
+                    <p class="max-w-2xl text-center">No endpoint das vendas, com a rota GET, existem duas opções, onde ambas utilizam da mesma url. O que diferencia as duas é o <u class="no-underline text-pink_petcare font-bold">parâmetro de rota (id)</u>. Cada rota, com ou sem parâmetro de rota, possui duas variações, com <u class="no-underline text-light_blue font-bold">objetos completos</u> ou <u class="no-underline text-light_blue font-bold">semi-completos</u>.</p>
+                    
                     <p class="text-pink_petcare w-full text-lg mt-3">Endpoints</p>
                     
                     <div class="mb-3 w-full">
@@ -1637,7 +1638,7 @@
                         <small class="italic w-full">Essa é a URL padrão para o endpoint 'sales'</small>
                     </div>
                     
-                    <div class="w-full">
+                    <div class="mb-3 w-full">
                         <code class="block rounded-md border border-pink_petcare shadow-xl break-words md:flex md:justify-between">
                             <p class="px-2 py-2 w-fit self-center break-all" data-clipboard-text>
                                 https://api-petcare.onrender.com/<u class="no-underline text-pink_petcare font-bold">sales/&lt;id&gt;</u>?auth=&lt;TOKEN&gt;</u>
@@ -1654,11 +1655,107 @@
                         </code>
                         <small class="italic w-full">Essa é a URL para obter uma venda específica pelo seu ID</small>
                     </div>
+
+                    <!-- TODO: Adicionar menção ao parâmetro de busca "completed" -->
+
+                    <div class="w-full flex flex-col gap-4">
+                        <div class="w-full border border-light_blue border-dashed rounded rounded-md p-3">
+                            <div class="flex flex-col gap-2 mb-2">
+                                <h4 class="text-xl text-dark_blue flex items-center gap-2">
+                                    <i data-lucide="info"></i>
+                                    Objetos completos
+                                </h4>
+                                <p>Na variação de objetos completos, o endpoint terá todos os objetos de entidades envolvidas em sua resposta, completos. Ou seja, no caso do endpoint de vendas (sales), o retorno terá os dados da venda mais os dados do cliente e dos produtos envolvidos na compra.</p>
+                            </div>
+                            
+                            <div class="mb-2">
+                                <code class="block rounded-md border border-dashed border-light_blue shadow-xl break-words md:flex md:justify-between">
+                                    <p class="whitespace-pre-line px-2 py-2 w-fit self-center break-all" data-clipboard-text>{
+                                        &emsp;&ensp;"id": "id_int",
+                                        &emsp;&ensp;<strong class="text-green_petcare font-normal">"client": {
+                                        &emsp;&ensp;&ensp; "id": 10,
+                                        &emsp;&ensp;&ensp; "name": "nome_do_cliente",
+                                        &emsp;&ensp;&ensp; "address": {
+                                        &emsp;&ensp;&ensp;&ensp; ...
+                                        &emsp;&ensp;&ensp; },
+                                        &emsp;&ensp;}</strong>
+                                        &emsp;&ensp;"date_time": "data_da_venda",
+                                        &emsp;&ensp;...
+                                        &emsp;&ensp;"products": [
+                                        &emsp;&ensp;&ensp;{
+                                        &emsp;&ensp;&ensp; "quantity": 2,
+                                        &emsp;&ensp;&ensp; <strong class="text-green_petcare font-normal">"product": {
+                                        &emsp;&ensp;&ensp;&ensp;&ensp; "id": 3,
+                                        &emsp;&ensp;&ensp;&ensp;&ensp; ...
+                                        &emsp;&ensp;&ensp; }</strong>
+                                        &emsp;&ensp;&ensp;},
+                                        &emsp;&ensp;&ensp; ...
+                                        &emsp;&ensp;]
+                                    }
+                                    </p>
+        
+                                    <div class="pl-2 md:pl-0 flex justify-center items-center border-t border-t-1 md:border-t-0 md:border-l md:border-l-1 before:border-t-1 border-light_blue border-dashed">
+                                        <button data-clipboard class="text-light_blue p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                            <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                            <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+        
+                                            <p class="text-xs font-sans">Copiar</p>
+                                        </button>
+                                    </div>
+                                </code>
+    
+                                <small class="italic w-full">
+                                    https://api-petcare.onrender.com/<u class="no-underline text-light_blue font-bold">sales/&lt;id&gt;?completed=true</u>&auth=&lt;TOKEN&gt;
+                                </small>
+                            </div>
+
+                            <p>Para isso, basta chamar a <u class="no-underline text-light_blue">url padrão</u> passando o <u class="no-underline text-light_blue">parâmetro</u> de busca: <u class="no-underline text-light_blue">completed como true</u>.</p>
+                        </div>
+
+                        <div class="w-full border border-light_blue border-dashed rounded rounded-md p-3">
+                            <div class="flex flex-col gap-2 mb-2">
+                                <h4 class="text-xl text-dark_blue flex items-center gap-2">
+                                    <i data-lucide="info"></i>
+                                    Objetos semi-completos
+                                </h4>
+
+                                <p>Já na variação de objetos semi-completos, o endpoint não irá retornar todos os dados das entidades envolvidas, mas sim, somente o id correspondente a elas.</p>
+                            </div>
+
+                            <div class="mb-2">
+                                <code class="block rounded-md border border-dashed border-light_blue shadow-xl break-words md:flex md:justify-between">
+                                    <p class="whitespace-pre-line px-2 py-2 w-fit self-center break-all" data-clipboard-text>{
+                                        &emsp;&ensp;"id": "id_int",
+                                        &emsp;&ensp;<strong class="text-green_petcare font-normal">"client_id": 10</strong>,
+                                        &emsp;&ensp;"date_time": "data_da_venda",
+                                        &emsp;&ensp;...
+                                        &emsp;&ensp;<strong class="text-green_petcare font-normal">"product_id": 1</strong>
+                                    }
+                                    </p>
+        
+                                    <div class="pl-2 md:pl-0 flex justify-center items-center border-t border-t-1 md:border-t-0 md:border-l md:border-l-1 before:border-t-1 border-light_blue border-dashed">
+                                        <button data-clipboard class="text-light_blue p-3 rounded rounded-sm group flex flex-col gap-1 items-center">
+                                            <i data-lucide="clipboard" class="duration-75 group-hover:scale-125"></i>
+                                            <i data-lucide="check" class="hidden duration-75 group-hover:scale-125"></i>
+        
+                                            <p class="text-xs font-sans">Copiar</p>
+                                        </button>
+                                    </div>
+                                </code>
+    
+                                <small class="italic w-full">
+                                    https://api-petcare.onrender.com/<u class="no-underline text-light_blue font-bold">sales/&lt;id&gt;</u>?auth=&lt;TOKEN&gt;
+                                </small>
+                            </div>
+
+                            <p>Para isso, basta chamar apenas a <u class="no-underline text-light_blue">url padrão</u>, ou passar na url padrão o parâmetro de busca: completed como false ou qualquer outra coisa <u class="no-underline text-light_blue">que não seja "true"</u>.</p>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="flex flex-col gap-3">
                     <div class="mb-8">
-                        <h4 class="text-lg mb-1 "><strong class="text-light_blue font-normal">|</strong> Buscar <strong class="text-light_blue font-normal">todas</strong> as vendas</h4>
+                        <h4 class="text-lg mb-1 "><strong class="text-light_blue font-normal">|</strong> Buscar <strong class="text-light_blue font-normal">todas</strong> as vendas - <u class="decoration-wavy decoration-green_petcare">Objetos semi-completos</u></h4>
                         <div class="mb-3">
                             <h5>Corpo da requisição | <strong class="text-green_petcare font-normal">Nenhum</strong></h5>
                             <div class="flex items-center gap-5 flex-wrap">
@@ -1700,7 +1797,7 @@
                     </div>
 
                     <div>
-                        <h4 class="text-lg mb-1"><strong class="text-light_blue font-normal">| Buscar</strong> uma venda <strong class="text-light_blue font-normal">pelo ID</strong></h4>
+                        <h4 class="text-lg mb-1"><strong class="text-light_blue font-normal">| Buscar</strong> uma venda <strong class="text-light_blue font-normal">pelo ID</strong> - <u class="decoration-wavy decoration-green_petcare">Objetos completos</u></h4>
 
                         <!-- Request body -->
                         <div class="mb-3">
@@ -1715,7 +1812,7 @@
                                     </p>
                                 </code>
 
-                                <h4 class="italic"><i data-lucide="arrow-big-right-dash" class="inline text-light_blue"></i> Basta somente chamar a  <strong class="text-light_blue font-normal">url padrão COM o id que deseja buscar</strong>.</h4>
+                                <h4 class="italic"><i data-lucide="arrow-big-right-dash" class="inline text-light_blue"></i> Basta somente chamar a  <strong class="text-light_blue font-normal">url padrão COM o id que deseja buscar e passar o parâmetro "completed"</strong>.</h4>
                             </div>
                         </div>
 
@@ -1730,7 +1827,16 @@
                                         &emsp;&ensp;"date_time": "data_da_venda",
                                         &emsp;&ensp;"total": "total_em_reais_decimal",
                                         &emsp;&ensp;"payment_method": "metodo_de_pagamento",
-                                        &emsp;&ensp;"products": [lista_de_objetos_de_produtos]
+                                        &emsp;&ensp;"products": [
+                                        &emsp;&ensp;&ensp;{
+                                        &emsp;&ensp;    "quantity": 2,
+                                        &emsp;&ensp;    "product": {
+                                        &emsp;&ensp;      "id": 3,
+                                        &emsp;&ensp;      ...
+                                        &emsp;&ensp;    }
+                                        &emsp;&ensp;&ensp;},
+                                        &emsp;&ensp;...
+                                        &emsp;&ensp;]
                                     }]
                                 </p>
 
@@ -1748,6 +1854,7 @@
                     </div>
                 </div>
             </div>
+
 
             <hr class="h-[2px] w-1/2 translate-x-1/2 my-6 bg-light_blue">
             <!-- POST -->

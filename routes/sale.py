@@ -12,22 +12,66 @@ sale_blueprint = Blueprint("sales", __name__, url_prefix="/sales")
 
 @sale_blueprint.get('/')
 def get_all_sales():
-    return jsonify(
-        supabase_operation(
-            sale_table
-            .select("*")
-        )
-    )
+    query_parameters = request.args
+    completed = query_parameters.get('completed')
 
+    if not completed or completed != 'true':
+        return jsonify(
+            supabase_operation(
+                sale_table
+                .select('*')
+            )
+        )
+
+    completed_sales = supabase_operation(
+        sale_table
+        .select('*, client(*)')
+    )
+    
+    for sale in completed_sales:
+        sale_index = completed_sales.index(sale)
+
+        for product in sale['products']:
+            product_index = sale['products'].index(product)
+            found_product = json.loads(get_product_by_id(product['product_id']).get_data(True))[0]
+
+            completed_sales[sale_index]['products'][product_index] = {
+                **completed_sales[sale_index]['products'][product_index],
+                "product": found_product
+            }
+
+    return jsonify(completed_sales)
+    
 @sale_blueprint.get('/<id>')
 def get_sale_by_id(id):
-    return jsonify(
-        supabase_operation(
-            sale_table
-            .select("*")
-            .eq("id", id)
+    query_parameters = request.args
+    completed = query_parameters.get('completed')
+
+    if not completed or completed != 'true':
+        return jsonify(
+            supabase_operation(
+                sale_table
+                .select("*")
+                .eq("id", id)
+            )
         )
-    )
+
+    completed_sale = supabase_operation(
+        sale_table
+        .select('*, client(*)')
+        .eq("id", id)
+    )[0]
+    
+    for product in completed_sale['products']:
+        product_index = completed_sale['products'].index(product)
+        found_product = json.loads(get_product_by_id(product['product_id']).get_data(True))[0]
+
+        completed_sale['products'][product_index] = {
+            **completed_sale['products'][product_index],
+            "product": found_product
+        }
+
+    return jsonify(completed_sale)
 
 @sale_blueprint.post('/')
 def save_sale():
