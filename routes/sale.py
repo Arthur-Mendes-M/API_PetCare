@@ -108,7 +108,7 @@ def save_sale():
 
         calculated_current_sold_product = sum([sold_quantity * sold_product_price])
 
-        if calculated_current_sold_product < 0:
+        if products[sold_product_id]['quantity_in_stock'] - sold_quantity < 0:
             raise BadRequest('Wrong quantities on sold products. The quantity of purchase must be less or equal to quantity_in_stock of products.')
         
         sale['total'] += calculated_current_sold_product
