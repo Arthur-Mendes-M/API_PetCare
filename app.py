@@ -2,6 +2,7 @@ from werkzeug.exceptions import HTTPException
 from flask import Flask, render_template, jsonify, make_response
 from utils.auth import protect_routes
 import json
+from flask_cors import CORS
 
 # import all blueprints (routes set by entity)
 from routes.employee import employee_blueprint
@@ -11,6 +12,7 @@ from routes.sale import sale_blueprint
 
 # Create flask instance and save blueprints
 app = Flask(__name__, static_folder="./images")
+CORS(app)
 
 # register all blueprint
 app.register_blueprint(employee_blueprint)
